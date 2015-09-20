@@ -3,6 +3,8 @@ package crowsofwar.shogun;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import crowsofwar.shogun.common.entity.ShogunNPCPeasant;
 
 @Mod(modid=Shogun.MOD_ID, name=Shogun.MOD_NAME, version=Shogun.VERSION)
 public class Shogun {
@@ -13,7 +15,7 @@ public class Shogun {
 	
 	@SubscribeEvent
 	public void preInit(FMLPreInitializationEvent event) {
-		
+		EntityRegistry.registerGlobalEntityID(ShogunNPCPeasant.class, "Shogun.Peasant", EntityRegistry.findGlobalUniqueEntityId());
 	}
 	
 }
