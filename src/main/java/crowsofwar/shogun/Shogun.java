@@ -24,11 +24,10 @@ public class Shogun {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-//		EntityRegistry.registerModEntity(ShogunNPCPeasant.class, "ShogunPeasant", 1, instance, 64, 3, true);
 		EntityRegistry.registerGlobalEntityID(ShogunNPCPeasant.class, "ShogunPeasant", EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(ShogunNPCPeasant.class, "ShogunPeasant", 1, instance, 64, 3, true);
 		
 		proxy.sideSpecifics();
-		System.out.println("BANANA PREINIT");
 		
 	}
 	

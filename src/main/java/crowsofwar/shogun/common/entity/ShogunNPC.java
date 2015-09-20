@@ -18,6 +18,7 @@ public abstract class ShogunNPC extends EntityAgeable {
 	public ShogunNPC(World world) {
 		super(world);
 		addRegularTasks();
+		setSize(0.6f, 1.8f);
 	}
 	
 	/**

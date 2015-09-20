@@ -2,7 +2,9 @@ package crowsofwar.shogun.client.render;
 
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderBiped;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,7 +15,7 @@ public class ShogunRenderNPC extends RenderBiped
 	private final ResourceLocation texture;
 
 	public ShogunRenderNPC(String textureFile) {
-		super(new ModelBiped(), 0.5F);
+		super(new ShogunModelBiped(), 0.5F);
 		this.texture = new ResourceLocation("shogun:textures/entity/" + textureFile + ".png");
 	}
 	
