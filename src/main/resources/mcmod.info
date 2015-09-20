@@ -1,0 +1,16 @@
+[
+{
+  "modid": "Shogun",
+  "name": "Sh\014Dgun",
+  "description": "Recreating the experience brought to you in the Sh\u014Dgun novel - conquer in feudal Japan!",
+  "version": "1.7.10-0.5.0",
+  "mcversion": "1.7.10",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["CrowsOfWar"],
+  "credits": "CrowsOfWar. Thanks to the may people who helped me learn to mod.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
