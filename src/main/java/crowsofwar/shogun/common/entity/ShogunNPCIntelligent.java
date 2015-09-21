@@ -79,7 +79,7 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 	 * @param playerID The account UUID of that player
 	 * @return A knowledge list for that player
 	 */
-	private List<Integer> getEventKnowledge(UUID playerID) {
+	public List<Integer> getEventKnowledge(UUID playerID) {
 		if (!knowsAboutEvents.containsKey(playerID)) knowsAboutEvents.put(playerID, new ArrayList<Integer>());
 		return knowsAboutEvents.get(playerID);
 	}
@@ -96,7 +96,7 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 	 * @param player The player
 	 * @return A knowledge list for that player
 	 */
-	private List<Integer> getEventKnowledge(EntityPlayer player) {
+	public List<Integer> getEventKnowledge(EntityPlayer player) {
 		return getEventKnowledge(GoreCorePlayerUUIDs.getUUIDPerformance(player.getCommandSenderName()));
 	}
 	
