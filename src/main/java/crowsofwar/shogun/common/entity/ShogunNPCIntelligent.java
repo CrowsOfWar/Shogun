@@ -60,7 +60,7 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 	/** The map is playerID -> actions known about. The list is the indices of the player's actions that the NPC knows about. */
 	private final Map<UUID, List<Integer>> knowsAboutEvents;
 	/** The cached honor calculations, 0 to 1000. -1 means to recalculate the honor level. */
-	private final Map<UUID, Integer> cachedHonorLevels;
+	private Map<UUID, Integer> cachedHonorLevels;
 	
 	public ShogunNPCIntelligent(World world) {
 		super(world);
