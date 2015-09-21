@@ -14,6 +14,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
 import crowsofwar.gorecore.util.GoreCoreNBTInterfaces.CreateFromNBT;
+import crowsofwar.gorecore.util.GoreCoreNBTInterfaces.MapUser;
 import crowsofwar.gorecore.util.GoreCoreNBTInterfaces.WriteToNBT;
 import crowsofwar.gorecore.util.GoreCoreNBTUtil;
 import crowsofwar.gorecore.util.GoreCorePlayerUUIDs;
@@ -32,6 +33,28 @@ import crowsofwar.shogun.common.society.ShogunOpinion;
  * @author CrowsOfWar
  */
 public abstract class ShogunNPCIntelligent extends ShogunNPC {
+	
+	private static final MapUser<UUID, Integer> CACHED_HONOR_LEVEL_MAP_USER = new MapUser<UUID, Integer>() {
+		@Override
+		public UUID createK(NBTTagCompound nbt, Object[] constructArgsK) {
+			return GoreCoreNBTUtil.readUUIDFromNBT(nbt, "PlayerUUID");
+		}
+		
+		@Override
+		public Integer createV(NBTTagCompound nbt, UUID key, Object[] constructArgsV) {
+			return nbt.getInteger("Honor");
+		}
+
+		@Override
+		public void writeK(NBTTagCompound nbt, UUID obj) {
+			GoreCoreNBTUtil.writeUUIDToNBT(nbt, "PlayerUUID", obj);
+		}
+
+		@Override
+		public void writeV(NBTTagCompound nbt, Integer obj) {
+			nbt.setInteger("Honor", obj);
+		}
+	};
 	
 	private List<ShogunOpinion> opinions;
 	/** The map is playerID -> actions known about. The list is the indices of the player's actions that the NPC knows about. */
@@ -201,6 +224,9 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 			
 		}
 		
+		cachedHonorLevels = GoreCoreNBTUtil.readMapFromNBT(nbt, CACHED_HONOR_LEVEL_MAP_USER, "CachedHonor", new Object[0],
+				new Object[0]);
+		
 	}
 	
 	@Override
@@ -228,6 +254,8 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 			knowledgeList.appendTag(knowledgeNBT);
 		}
 		nbt.setTag("KnowledgeAboutPlayers", knowledgeList);
+		
+		GoreCoreNBTUtil.writeMapToNBT(nbt, cachedHonorLevels, CACHED_HONOR_LEVEL_MAP_USER, "CachedHonor");
 		
 	}
 	
