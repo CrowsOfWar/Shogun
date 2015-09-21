@@ -30,6 +30,10 @@ public enum ShogunAction {
 		for (ShogunAction action : values()) actionByID.put(action.id(), action);
 	}
 	
+	public int getHonorModifier() {
+		return honorModifier;
+	}
+	
 	public int id() {
 		return ordinal();
 	}
