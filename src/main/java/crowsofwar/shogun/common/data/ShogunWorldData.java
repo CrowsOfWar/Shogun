@@ -1,5 +1,6 @@
 package crowsofwar.shogun.common.data;
 
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import crowsofwar.gorecore.data.GoreCorePlayerData;
 import crowsofwar.gorecore.data.GoreCoreWorldDataFetcher;
@@ -18,12 +19,33 @@ public class ShogunWorldData extends GoreCoreWorldDataPlayers {
 	
 	public static final String KEY = "ShogunData";
 	
+	private long nextEntityID;
+	
 	public ShogunWorldData() {
 		this(KEY);
 	}
 	
 	public ShogunWorldData(String key) {
 		super(KEY);
+	}
+	
+	/**
+	 * Gets the next entity ID, then increments it.
+	 */
+	public long nextEntityID() {
+		return nextEntityID++;
+	}
+	
+	@Override
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		nextEntityID = nbt.getLong("NextEntityID");
+	}
+	
+	@Override
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+		nbt.setLong("NextEntityID", nextEntityID);
 	}
 	
 	@Override
