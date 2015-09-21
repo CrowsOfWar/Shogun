@@ -9,6 +9,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import crowsofwar.shogun.common.ShogunCommonProxy;
 import crowsofwar.shogun.common.entity.ShogunNPCPeasant;
+import crowsofwar.shogun.common.entity.ShogunNPCTestBrain;
 
 @Mod(modid=Shogun.MOD_ID, name=Shogun.MOD_NAME, version=Shogun.VERSION)
 public class Shogun {
@@ -28,6 +29,7 @@ public class Shogun {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		registerEntity(ShogunNPCPeasant.class, "ShogunPeasant");
+		registerEntity(ShogunNPCTestBrain.class, "ShogunTest");
 		
 		proxy.sideSpecifics();
 		
