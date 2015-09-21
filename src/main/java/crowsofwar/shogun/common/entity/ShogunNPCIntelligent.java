@@ -36,35 +36,45 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 	private List<ShogunOpinion> opinions;
 	/** The map is playerID -> actions known about. The list is the indices of the player's actions that the NPC knows about. */
 	private final Map<UUID, List<Integer>> knowsAboutEvents;
+	/** The cached honor calculations, 0 to 1000. -1 means to recalculate the honor level. */
+	private final Map<UUID, Integer> cachedHonorLevels;
 	
 	public ShogunNPCIntelligent(World world) {
 		super(world);
 		
 		opinions = new ArrayList<ShogunOpinion>();
 		knowsAboutEvents = new HashMap<UUID, List<Integer>>();
+		cachedHonorLevels = new HashMap<UUID, Integer>();
 		
 	}
 	
-	public int calculateHonorLevel(UUID playerID) {
-		ShogunPlayerData data = (ShogunPlayerData) ShogunWorldData.getWorldData(worldObj).getPlayerData(playerID);
-		
-		int honor = data.getSocialClass().getDefaultHonor();
-		List<Integer> knowledge = getEventKnowledge(playerID);
-		List<ShogunAction> actionLog = data.getActionLog();
-		
-		for (int i = 0; i < actionLog.size(); i++) {
-			ShogunAction action = actionLog.get(i);
-			if (knowledge.contains(i)) honor += action.determineHonorModifier(this);
+	public int getHonorLevel(UUID playerID) {
+		if (cachedHonorLevels.containsKey(playerID) && cachedHonorLevels.get(playerID) != -1) {
+			return cachedHonorLevels.get(playerID);
+		} else {
+			ShogunPlayerData data = (ShogunPlayerData) ShogunWorldData.getWorldData(worldObj).getPlayerData(playerID);
+			
+			int honor = data.getSocialClass().getDefaultHonor();
+			List<Integer> knowledge = getEventKnowledge(playerID);
+			List<ShogunAction> actionLog = data.getActionLog();
+			
+			for (int i = 0; i < actionLog.size(); i++) {
+				ShogunAction action = actionLog.get(i);
+				if (knowledge.contains(i)) honor += action.determineHonorModifier(this);
+			}
+			
+			return honor;
 		}
-		
-		return honor;
-		
 	}
 	
 	/**
-	 * Get a list of indices for that player. Each index represents the action
+	 * <p>Get a list of indices for that player. Each index represents the action
 	 * that player performed through his/her action log. So, this effectively
-	 * gives a list of actions the NPC knows about for that player.
+	 * gives a list of actions the NPC knows about for that player.</p>
+	 * 
+	 * <p><strong>IMPORTANT - If you modify this list</strong>, call
+	 * {@link #recalculateHonorLevel(playerID)}. Otherwise the honor level may
+	 * not be changed.</p>
 	 * 
 	 * @param playerID The account UUID of that player
 	 * @return A knowledge list for that player
@@ -75,9 +85,13 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 	}
 	
 	/**
-	 * Get a list of indices for that player. Each index represents the action
+	 * <p>Get a list of indices for that player. Each index represents the action
 	 * that player performed through his/her action log. So, this effectively
-	 * gives a list of actions the NPC knows about for that player.
+	 * gives a list of actions the NPC knows about for that player.</p>
+	 * 
+	 * <p><strong>IMPORTANT - If you modify this list</strong>, call
+	 * {@link #recalculateHonorLevel(playerID)}. Otherwise the honor level may
+	 * not be changed.</p>
 	 * 
 	 * @param player The player
 	 * @return A knowledge list for that player
@@ -87,7 +101,27 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 	}
 	
 	/**
-	 * Learn about the latest action performed by that playe.r
+	 * Mark that player's honor level for recalculation - this would be called
+	 * upon changes that somehow modify the honor level.
+	 * 
+	 * @param playerID The ID of the player to recalculate
+	 */
+	public void recalculateHonorLevel(UUID playerID) {
+		cachedHonorLevels.put(playerID, -1);
+	}
+	
+	/**
+	 * Mark that player's honor level for recalculation - this would be called
+	 * upon changes that somehow modify the honor level.
+	 * 
+	 * @param player The player to recalculate
+	 */
+	public void recalculateHonorLevel(EntityPlayer player) {
+		recalculateHonorLevel(GoreCorePlayerUUIDs.getUUIDPerformance(player.getCommandSenderName()));
+	}
+	
+	/**
+	 * Learn about the latest action performed by that player.
 	 * 
 	 * @param player The player
 	 */
@@ -95,6 +129,7 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 		ShogunPlayerData data = ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player);
 		if (data != null) {
 			getEventKnowledge(player).add(data.getActionLog().size() - 1);
+			recalculateHonorLevel(player);
 		} else {
 			FMLLog.warning("Shogun> NPC could not learn the latest action of " + player.getCommandSenderName() + ".");
 			Thread.dumpStack();
