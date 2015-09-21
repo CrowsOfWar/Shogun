@@ -54,7 +54,7 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 		
 		for (int i = 0; i < actionLog.size(); i++) {
 			ShogunAction action = actionLog.get(i);
-			if (knowledge.contains(i)) honor += action.getHonorModifier();
+			if (knowledge.contains(i)) honor += action.determineHonorModifier(this);
 		}
 		
 		return honor;
@@ -109,6 +109,35 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 	 */
 	public void brainwash(EntityPlayer player) {
 		getEventKnowledge(player).clear();
+	}
+	
+	/**
+	 * Check if the NPC has that opinion.
+	 * 
+	 * @param opinion The opinion 
+	 * @return Whether the NPC has the opinion or not
+	 */
+	public boolean hasOpinion(ShogunOpinion opinion) {
+		return opinions.contains(opinion);
+	}
+	
+	/**
+	 * Set whether the NPC has that opinion.
+	 * 
+	 * @param opinion The opinion
+	 * @param has Whether the NPC should have the opinion or not
+	 */
+	public void setOpinion(ShogunOpinion opinion, boolean has) {
+		if (has && !opinions.contains(opinion)) opinions.add(opinion);
+		if (!has && opinions.contains(opinion)) opinions.remove(opinion);
+	}
+	
+	public int interpretAction(ShogunAction action) {
+		if (action == ShogunAction.DISRESPECT_CATHOLICS) {
+			return hasOpinion(ShogunOpinion.CATHOLIC) ? -250 : 100;
+		}
+		
+		return 0;
 	}
 	
 	@Override

@@ -11,7 +11,7 @@ import java.util.Map;
 public enum ShogunOpinion {
 	
 	/** The NPC is Christian - false by default because most Japanese people weren't Christians */
-	CHRISTIAN,
+	CATHOLIC,
 	/** The NPC supports usage of guns, most would think this dishonorable */
 	GUNS;
 	
