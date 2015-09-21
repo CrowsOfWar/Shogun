@@ -86,6 +86,7 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 				if (knowledge.contains(i)) honor += action.determineHonorModifier(this);
 			}
 			
+			cachedHonorLevels.put(playerID, honor);
 			return honor;
 		}
 	}
