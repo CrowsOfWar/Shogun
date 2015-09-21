@@ -21,6 +21,10 @@ public class ShogunWorldData extends GoreCoreWorldDataPlayers {
 	
 	private long nextEntityID;
 	
+	public ShogunWorldData(String key) {
+		super(KEY);
+	}
+	
 	public ShogunWorldData(World world, String key) {
 		super(world, KEY);
 	}
