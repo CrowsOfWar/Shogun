@@ -6,7 +6,7 @@ package crowsofwar.shogun.common.society;
  * 
  * @author CrowsOfWar
  */
-public enum ShogunClass {
+public enum ShogunSocialClass {
 	
 	BARBARIAN(true, -300),
 	BARBARIAN_LONGER(false, -50),
@@ -21,7 +21,7 @@ public enum ShogunClass {
 	private final boolean startingClass;
 	private final int defaultHonor;
 	
-	private ShogunClass(boolean startingClass, int defaultHonor) {
+	private ShogunSocialClass(boolean startingClass, int defaultHonor) {
 		this.startingClass = startingClass;
 		this.defaultHonor = defaultHonor;
 	}
