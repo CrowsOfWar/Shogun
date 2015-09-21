@@ -1,5 +1,6 @@
 package crowsofwar.shogun;
 
+import net.minecraft.entity.Entity;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -16,6 +17,8 @@ public class Shogun {
 	public static final String MOD_NAME = "Sh\u014Dgun";
 	public static final String VERSION = "1.7.10-0.5.0";
 	
+	private int nextEntityID = 1;
+	
 	@Instance(value=Shogun.MOD_ID)
 	public static Shogun instance;
 	
@@ -24,11 +27,15 @@ public class Shogun {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		EntityRegistry.registerGlobalEntityID(ShogunNPCPeasant.class, "ShogunPeasant", EntityRegistry.findGlobalUniqueEntityId());
-		EntityRegistry.registerModEntity(ShogunNPCPeasant.class, "ShogunPeasant", 1, instance, 64, 3, true);
+		registerEntity(ShogunNPCPeasant.class, "ShogunPeasant");
 		
 		proxy.sideSpecifics();
 		
+	}
+	
+	private void registerEntity(Class<? extends Entity> entity, String name) {
+		EntityRegistry.registerGlobalEntityID(entity, name, EntityRegistry.findGlobalUniqueEntityId());
+		EntityRegistry.registerModEntity(entity, name, nextEntityID++, instance, 64, 3, true);
 	}
 	
 }
