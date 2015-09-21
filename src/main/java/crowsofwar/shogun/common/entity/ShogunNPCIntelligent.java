@@ -90,6 +90,10 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 		}
 	}
 	
+	public int getHonorLevel(EntityPlayer player) {
+		return getHonorLevel(GoreCorePlayerUUIDs.getUUIDPerformance(player.getCommandSenderName()));
+	}
+	
 	/**
 	 * <p>Get a list of indices for that player. Each index represents the action
 	 * that player performed through his/her action log. So, this effectively
