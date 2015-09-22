@@ -1,5 +1,7 @@
 package crowsofwar.shogun.common.entity;
 
+import io.netty.buffer.ByteBuf;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import crowsofwar.shogun.common.data.ShogunWorldData;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAILookIdle;
@@ -15,9 +17,10 @@ import net.minecraft.world.World;
  * 
  * @author CrowsOfWar
  */
-public abstract class ShogunNPC extends EntityAgeable {
+public abstract class ShogunNPC extends EntityAgeable implements IEntityAdditionalSpawnData {
 	
 	private long shogunID;
+	private int texture;
 	
 	public ShogunNPC(World world) {
 		super(world);
@@ -28,6 +31,14 @@ public abstract class ShogunNPC extends EntityAgeable {
 	
 	public long getShogunID() {
 		return shogunID;
+	}
+	
+	public int getTexture() {
+		return texture;
+	}
+	
+	public void setTexture(int texture) {
+		this.texture = texture;
 	}
 	
 	// READ/WRITE
@@ -42,6 +53,18 @@ public abstract class ShogunNPC extends EntityAgeable {
 	public void writeEntityToNBT(NBTTagCompound nbt) {
 		super.writeEntityToNBT(nbt);
 		nbt.setLong("ShogunID", shogunID);
+	}
+	
+	// SYNC PACKET
+	
+	@Override
+	public void writeSpawnData(ByteBuf buffer) {
+		buffer.writeInt(getTexture());
+	}
+	
+	@Override
+	public void readSpawnData(ByteBuf additionalData) {
+		setTexture(additionalData.readInt());
 	}
 	
 	// HOOKS
