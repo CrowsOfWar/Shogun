@@ -111,6 +111,7 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	@Override
 	public boolean interact(EntityPlayer player) {
 		if (engageInConversation(player)) {
+			talkTo(player);
 			ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player).setTalkingToNPC(this);
 			player.openGui(Shogun.instance, ShogunGuiIDs.ID_CONVERSATION, worldObj, (int) posX, (int) posY, (int) posZ);
 			return true;
