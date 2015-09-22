@@ -24,6 +24,7 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	
 	private long shogunID;
 	private int texture;
+	private EntityPlayer talkingTo;
 	
 	public ShogunNPC(World world) {
 		super(world);
@@ -32,6 +33,7 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 		shogunID = ShogunWorldData.getWorldData(world).nextEntityID();
 		texture = 1;
 		assignTexture();
+		talkingTo = null;
 	}
 	
 	// VARIABLES
@@ -46,6 +48,14 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	
 	public void setTexture(int texture) {
 		this.texture = texture;
+	}
+	
+	public EntityPlayer getPlayerTalkingTo() {
+		return talkingTo;
+	}
+	
+	public void talkTo(EntityPlayer player) {
+		talkingTo = player;
 	}
 	
 	// READ/WRITE
