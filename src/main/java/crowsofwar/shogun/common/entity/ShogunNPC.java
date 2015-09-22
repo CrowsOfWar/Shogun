@@ -27,6 +27,8 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 		addRegularTasks();
 		setSize(0.6f, 1.8f);
 		shogunID = ShogunWorldData.getWorldData(world).nextEntityID();
+		texture = 1;
+		assignTexture();
 	}
 	
 	public long getShogunID() {
@@ -40,6 +42,8 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	public void setTexture(int texture) {
 		this.texture = texture;
 	}
+	
+	protected abstract void assignTexture();
 	
 	// READ/WRITE
 	

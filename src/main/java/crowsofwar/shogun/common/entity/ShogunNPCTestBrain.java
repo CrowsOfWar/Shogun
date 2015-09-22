@@ -21,5 +21,10 @@ public class ShogunNPCTestBrain extends ShogunNPCIntelligent {
 		player.addChatMessage(new ChatComponentText("Hmm... i think your honor is " + getHonorLevel(player)));
 		return true;
 	}
+
+	@Override
+	protected void assignTexture() {
+		setTexture(1);
+	}
 	
 }
