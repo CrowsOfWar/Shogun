@@ -2,7 +2,9 @@ package crowsofwar.shogun.common.entity;
 
 import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
+import crowsofwar.shogun.Shogun;
 import crowsofwar.shogun.common.data.ShogunWorldData;
+import crowsofwar.shogun.common.management.ShogunGuiIDs;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAISwimming;
@@ -31,6 +33,8 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 		assignTexture();
 	}
 	
+	// VARIABLES
+	
 	public long getShogunID() {
 		return shogunID;
 	}
@@ -42,8 +46,6 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	public void setTexture(int texture) {
 		this.texture = texture;
 	}
-	
-	protected abstract void assignTexture();
 	
 	// READ/WRITE
 	
@@ -84,6 +86,25 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 5));
 		tasks.addTask(5, new EntityAILookIdle(this));
 		tasks.addTask(6, new EntityAIWander(this, 0.75));
+	}
+	
+	protected abstract void assignTexture();
+	
+	/**
+	 * Returns whether to start a conversation with that player
+	 */
+	protected boolean engageInConversation(EntityPlayer player) {
+		return false;
+	}
+	
+	@Override
+	public boolean interact(EntityPlayer player) {
+		if (engageInConversation(player)) {
+			player.openGui(Shogun.instance, ShogunGuiIDs.ID_CONVERSATION, worldObj, (int) posX, (int) posY, (int) posZ);
+			return true;
+		}
+		
+		return false;
 	}
 	
 }
