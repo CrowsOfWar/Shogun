@@ -15,8 +15,8 @@ public class ShogunRenderNPC extends RenderBiped
 	public ShogunRenderNPC(String textureFile, int textures) {
 		super(new ShogunModelBiped(), 0.5F);
 		this.textures = new ResourceLocation[textures];
-		for (int i = 1; i <= textures; i++) {
-			this.textures[i] = new ResourceLocation("shogun:textures/entity/" + textureFile + i + ".png");
+		for (int i = 0; i < textures; i++) {
+			this.textures[i] = new ResourceLocation("shogun:textures/entity/" + textureFile + (i + 1) + ".png");
 		}
 	}
 	
