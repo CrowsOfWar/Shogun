@@ -15,12 +15,6 @@ public class ShogunNPCTestBrain extends ShogunNPCIntelligent {
 	public EntityAgeable createChild(EntityAgeable p_90011_1_) {
 		return null;
 	}
-	
-	@Override
-	public boolean interact(EntityPlayer player) {
-		player.addChatMessage(new ChatComponentText("Hmm... i think your honor is " + getHonorLevel(player)));
-		return true;
-	}
 
 	@Override
 	protected void assignTexture() {
