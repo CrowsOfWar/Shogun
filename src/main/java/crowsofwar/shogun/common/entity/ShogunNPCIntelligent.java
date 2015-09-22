@@ -204,6 +204,11 @@ public abstract class ShogunNPCIntelligent extends ShogunNPC {
 	}
 	
 	@Override
+	protected boolean engageInConversation(EntityPlayer player) {
+		return true;
+	}
+	
+	@Override
 	public void readEntityFromNBT(NBTTagCompound nbt) {
 		super.readEntityFromNBT(nbt);
 		
