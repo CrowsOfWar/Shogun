@@ -33,6 +33,7 @@ public class ShogunWorldData extends GoreCoreWorldDataPlayers {
 	 * Gets the next entity ID, then increments it.
 	 */
 	public long nextEntityID() {
+		saveChanges();
 		return nextEntityID++;
 	}
 	
