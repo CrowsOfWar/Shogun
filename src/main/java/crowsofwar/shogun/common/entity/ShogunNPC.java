@@ -108,6 +108,8 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 		return false;
 	}
 	
+	// IMPLEMENTATION OF VANILLA METHODS
+	
 	@Override
 	public boolean interact(EntityPlayer player) {
 		if (engageInConversation(player)) {
@@ -118,6 +120,11 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public boolean isAIEnabled() {
+		return true; // I really don't get why this isn't true by default...
 	}
 	
 }
