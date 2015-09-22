@@ -3,6 +3,7 @@ package crowsofwar.shogun.common.entity;
 import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import crowsofwar.shogun.Shogun;
+import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
 import crowsofwar.shogun.common.data.ShogunWorldData;
 import crowsofwar.shogun.common.management.ShogunGuiIDs;
 import net.minecraft.entity.EntityAgeable;
@@ -100,6 +101,7 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	@Override
 	public boolean interact(EntityPlayer player) {
 		if (engageInConversation(player)) {
+			ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player).setTalkingToNPC(this);
 			player.openGui(Shogun.instance, ShogunGuiIDs.ID_CONVERSATION, worldObj, (int) posX, (int) posY, (int) posZ);
 			return true;
 		}
