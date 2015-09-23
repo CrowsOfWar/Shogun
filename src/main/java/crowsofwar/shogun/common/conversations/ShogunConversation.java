@@ -166,6 +166,10 @@ public class ShogunConversation {
 		this.currentResponses = currentResponses;
 	}
 	
+	public boolean justStarted() {
+		return currentResponses.size() == 0;
+	}
+	
 	public EntityPlayer getPlayer() {
 		return player;
 	}
