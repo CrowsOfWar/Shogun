@@ -65,14 +65,17 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	
 	@Override
 	public void readEntityFromNBT(NBTTagCompound nbt) {
-		super.readEntityFromNBT(nbt);
-		shogunID = nbt.getLong("ShogunID");
-		setTexture(nbt.getInteger("Texture"));
+		if (nbt.getBoolean("NBTEnabled")) {
+			super.readEntityFromNBT(nbt);
+			shogunID = nbt.getLong("ShogunID");
+			setTexture(nbt.getInteger("Texture"));
+		}
 	}
 	
 	@Override
 	public void writeEntityToNBT(NBTTagCompound nbt) {
 		super.writeEntityToNBT(nbt);
+		nbt.setBoolean("NBTEnabled", true);
 		nbt.setLong("ShogunID", shogunID);
 		nbt.setInteger("Texture", getTexture());
 	}
