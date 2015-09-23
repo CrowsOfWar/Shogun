@@ -1,5 +1,6 @@
 package crowsofwar.shogun.common.gui;
 
+import crowsofwar.shogun.common.conversations.ShogunConversation;
 import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
 import crowsofwar.shogun.common.entity.ShogunNPC;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,29 +14,35 @@ import net.minecraft.inventory.Container;
 public class ShogunContainerConversation extends Container {
 	
 	/**
-	 * The player talking to the NPC
+	 * The covversation at hand, it holds the player and the NPC
 	 */
-	private final EntityPlayer player;
+	private final ShogunConversation conversation;
 	
-	/**
-	 * The NPC talking to the player
-	 */
-	private final ShogunNPC npc;
+	public ShogunContainerConversation(ShogunConversation conversation) {
+		this.conversation = conversation;
+	}
 	
-	public ShogunContainerConversation(EntityPlayer player, ShogunNPC npc) {
-		this.player = player;
-		this.npc = npc;
+	public ShogunConversation getConversation() {
+		return conversation;
+	}
+	
+	public EntityPlayer getPlayer() {
+		return conversation.getPlayer();
+	}
+	
+	public ShogunNPC getNPC() {
+		return conversation.getNPC();
 	}
 	
 	@Override
 	public boolean canInteractWith(EntityPlayer player) {
-		return player == this.player && player.getDistanceSqToEntity(npc) <= 5*5; // TODO Make the range configurable and stuff
+		return player == getPlayer() && player.getDistanceSqToEntity(getNPC()) <= 5*5; // TODO Make the range configurable and stuff
 	}
 	
 	@Override
 	public void onContainerClosed(EntityPlayer player) {
 		super.onContainerClosed(player);
-		npc.talkTo(null);
+		getNPC().talkTo(null);
 		ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player).setTalkingTo(-1);
 	}
 	
