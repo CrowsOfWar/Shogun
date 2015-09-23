@@ -55,7 +55,7 @@ public class ShogunConversation {
 		if (next == null) {
 			ended = true;
 		} else {
-			addToHistory(next);
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) addToHistory(next);
 		}
 	}
 	
@@ -64,26 +64,31 @@ public class ShogunConversation {
 	}
 	
 	public void addToHistory(ShogunConversationStage stage) {
+		System.out.println("Adding stage to history: " + stage);
 		if (getCurrentStage() != null && getCurrentStage().getClass() == stage.getClass()) {
 			FMLLog.bigWarning("Shogun> Someone is messing around with conversations and is trying to add a conversation stage " +
-					"out of order. It's supposed to be prompt -> response, prompt -> response, but the order has been broken.");
+					"out of order. It's supposed to be prompt -> response, prompt -> response, but the order has been broken. " +
+					"The stages: %1$s", stages.toString());
 		}
 		stages.add(stage);
 		if (stage instanceof ShogunPrompt) {
-			currentResponses = getResponsesForCurrentPrompt();
 			
-			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+			// Only actually add responses if it's the server-side, client just has to wait for the server to send responses
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+				currentResponses = getResponsesForCurrentPrompt();
 				Shogun.network.sendTo(new ShogunPacketS2CConversationUpdate((ShogunPrompt) stage, currentResponses),
-				(EntityPlayerMP) player);
+						(EntityPlayerMP) player);
+			}
 			
 		} else {
+			System.out.println("Recieved respose; setting current responses to null");
 			currentResponses = null;
 			ShogunPrompt next = npc.getNextConversationPrompt(this);
 			if (next == null) {
 				ended = true;
 				return;
 			} else {
-				addToHistory(next);
+				if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) addToHistory(next);
 			}
 		}
 		
@@ -162,6 +167,7 @@ public class ShogunConversation {
 	 */
 	public void overrideCurrentResponses(List<ShogunResponse> currentResponses) {
 		this.currentResponses = currentResponses;
+		System.out.println("OVerride current responses to  "+ this.currentResponses);
 	}
 	
 	public boolean justStarted() {

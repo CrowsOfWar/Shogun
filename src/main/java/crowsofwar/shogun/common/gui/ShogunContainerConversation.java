@@ -1,5 +1,6 @@
 package crowsofwar.shogun.common.gui;
 
+import crowsofwar.shogun.Shogun;
 import crowsofwar.shogun.common.conversations.ShogunConversation;
 import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
 import crowsofwar.shogun.common.entity.ShogunNPC;
@@ -44,6 +45,8 @@ public class ShogunContainerConversation extends Container {
 		super.onContainerClosed(player);
 		getNPC().talkTo(null);
 		ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player).setTalkingTo(-1);
+		System.out.println("On container closing");
+		Shogun.proxy.setCurrentConversation(null);
 	}
 	
 }

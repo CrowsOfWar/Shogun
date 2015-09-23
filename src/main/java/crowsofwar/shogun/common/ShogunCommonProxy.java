@@ -1,5 +1,6 @@
 package crowsofwar.shogun.common;
 
+import crowsofwar.shogun.common.conversations.ShogunConversation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 
@@ -12,6 +13,14 @@ public class ShogunCommonProxy {
 	 */
 	public Object createClientGUI(int id, EntityPlayer player, World world, int x, int y, int z) {
 		return null;
+	}
+
+	public ShogunConversation getCurrentConversation() {
+		return null;
+	}
+
+	public void setCurrentConversation(ShogunConversation conversation) {
+		
 	}
 	
 }

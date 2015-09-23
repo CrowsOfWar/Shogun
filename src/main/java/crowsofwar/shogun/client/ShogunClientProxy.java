@@ -16,7 +16,13 @@ import crowsofwar.shogun.common.entity.ShogunNPCTestBrain;
 import crowsofwar.shogun.common.gui.ShogunContainerConversation;
 
 public class ShogunClientProxy extends ShogunCommonProxy {
-
+	
+	private ShogunConversation currentConversation;
+	
+	public ShogunClientProxy() {
+		currentConversation = null;
+	}
+	
 	@Override
 	public void sideSpecifics() {
 		RenderingRegistry.registerEntityRenderingHandler(ShogunNPCPeasant.class, new ShogunRenderNPC("peasant", 2));
@@ -28,13 +34,26 @@ public class ShogunClientProxy extends ShogunCommonProxy {
 		ShogunPlayerData data = ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player);
 		switch (id) {
 			case ID_CONVERSATION: {
-				return new ShogunGUIConversation(new ShogunContainerConversation(new ShogunConversation(
-						player, data.getTalkingToNPC(world))));
+				if (currentConversation == null)
+					setCurrentConversation(new ShogunConversation(player, data.getTalkingToNPC(world)));
+				System.out.println("Set conversation to " + currentConversation);
+				return new ShogunGUIConversation(new ShogunContainerConversation(currentConversation));
 			}
 		}
 		
 		FMLLog.bigWarning("Shogun> This is a bug! Problem with making a new server-side GUI because the GUI ID was incorrect: " + id);
 		return null;
+	}
+	
+	@Override
+	public ShogunConversation getCurrentConversation() {
+		return currentConversation;
+	}
+	
+	@Override
+	public void setCurrentConversation(ShogunConversation conversation) {
+		System.out.println("Set conversation to " + conversation);
+		this.currentConversation = conversation;
 	}
 	
 }
