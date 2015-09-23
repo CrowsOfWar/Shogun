@@ -79,4 +79,11 @@ public class ShogunGUIConversation extends GuiContainer implements ShogunConvers
 		}
 	}
 	
+	@Override
+	public void drawWorldBackground(int dirtScreenScroll) {
+		if (this.mc.theWorld == null) {
+			this.drawBackground(dirtScreenScroll);
+		}
+	}
+	
 }
