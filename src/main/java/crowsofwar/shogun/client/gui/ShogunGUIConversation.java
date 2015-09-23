@@ -39,9 +39,16 @@ public class ShogunGUIConversation extends GuiContainer implements ShogunConvers
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-//		fontRendererObj.drawString("Prompt: " + getConversation().getCurrentPrompt(), 10, 10, 0x000000, false);
-		ShogunPrompt prompt = getConversation().getCurrentPrompt();
-		drawCenteredString(fontRendererObj, StatCollector.translateToLocalFormatted("shogun.prompt." + (prompt == null ? "thinking" : prompt.getLanguageKey())), width / 2, 10, 0xffffff);
+		String key;
+		
+		ShogunConversation conversation = getConversation();
+		if (conversation == null) {
+			key = "shogun.prompt.bye";
+		} else {
+			ShogunPrompt prompt = conversation.getCurrentPrompt();
+			key = "shogun.prompt." + (prompt == null ? "thinking" : prompt.getLanguageKey());
+		}
+		drawCenteredString(fontRendererObj, StatCollector.translateToLocalFormatted(key), width / 2, 10, 0xffffff);
 	}//GuiCrafting
 
 	@Override
