@@ -3,6 +3,7 @@ package crowsofwar.shogun.common.entity;
 import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import crowsofwar.shogun.Shogun;
+import crowsofwar.shogun.common.ai.ShogunAIStayInConversation;
 import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
 import crowsofwar.shogun.common.data.ShogunWorldData;
 import crowsofwar.shogun.common.management.ShogunGuiIDs;
@@ -93,6 +94,7 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	 */
 	protected void addRegularTasks() {
 		tasks.addTask(0, new EntityAISwimming(this));
+		tasks.addTask(0, new ShogunAIStayInConversation(this));
 		tasks.addTask(4, new EntityAIWatchClosest(this, getClass(), 5));
 		tasks.addTask(4, new EntityAIWatchClosest(this, EntityPlayer.class, 5));
 		tasks.addTask(5, new EntityAILookIdle(this));
