@@ -41,11 +41,18 @@ public class ShogunConversation {
 	private final EntityPlayer player;
 	private final ShogunNPC npc;
 	
+	private final List<ShogunConversationChangeReciever> changeRecievers;
+	
 	public ShogunConversation(EntityPlayer player, ShogunNPC npc) {
 		this.player = player;
 		this.npc = npc;
 		stages = new ArrayList<ShogunConversationStage>();
 		currentResponses = null;
+		changeRecievers = new ArrayList<ShogunConversationChangeReciever>();
+	}
+	
+	public void watchChangeReciever(ShogunConversationChangeReciever reciever) {
+		changeRecievers.add(reciever);
 	}
 	
 	public void addToHistory(ShogunConversationStage stage) {
@@ -67,6 +74,8 @@ public class ShogunConversation {
 			currentResponses = null;
 			addToHistory(npc.getNextConversationPrompt(this));
 		}
+		
+		for (ShogunConversationChangeReciever rec : changeRecievers) rec.onChanged();
 	}
 	
 	/**
