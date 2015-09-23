@@ -22,6 +22,7 @@ public class ShogunAIStayInConversation extends EntityAIBase {
 	public boolean continueExecuting() {
 		if (shouldExecute()) {
 			npc.getNavigator().tryMoveToEntityLiving(npc.getPlayerTalkingTo(), 1);
+			npc.getLookHelper().setLookPositionWithEntity(npc.getPlayerTalkingTo(), 20, 20);
 			return true;
 		} else {
 			return false;
