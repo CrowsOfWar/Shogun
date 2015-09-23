@@ -1,0 +1,15 @@
+shogun.prompt.error=I seem to have an error in my head.
+shogun.prompt.whatIsIt=What is it?
+shogun.prompt.hello=Hello
+shogun.prompt.askBuyGoods=Hello, noble blah. Would you like to buy my high-quality goods?
+shogun.prompt.okay=Okay
+shogun.prompt.hereAreMyGoods=Fantastic! Here are my wares:
+shogun.prompt.goAwayRude=Horrible!
+
+shogun.response.ok=Okay
+shogun.response.no=No
+shogun.response.never=Never!
+shogun.response.maybeLater=Maybe later.
+shogun.response.hello=Hello!
+shogun.response.goAwayRude=Get away from me you scum!
+
