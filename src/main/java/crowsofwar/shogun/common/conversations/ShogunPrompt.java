@@ -16,7 +16,10 @@ public enum ShogunPrompt implements ShogunConversationStage {
 	ERROR("error"), // "BEEP. BEEP. Error imminent."
 	WHAT_IS_IT("whatIsIt"), // "What is it?"
 	HELLO("hello", ShogunResponse.HELLO, ShogunResponse.GO_AWAY_RUDE), // "Hello"
-	ASK_BUY_GOODS("askBuyGoods", PromptType.YES_NO_MAYBE); // "would you like to buy my wonderful wares?"
+	ASK_BUY_GOODS("askBuyGoods", PromptType.YES_NO_MAYBE), // "would you like to buy my wonderful wares?"
+	OKAY("okay", PromptType.OK), // "Okay."
+	HERE_ARE_MY_GOODS("showGoods", PromptType.OK),
+	GO_AWAY_RUDE("goAwayRude", PromptType.OK);
 	
 	private final String langKey;
 	private final PromptType type;
