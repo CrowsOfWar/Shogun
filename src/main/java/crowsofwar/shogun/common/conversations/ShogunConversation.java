@@ -111,4 +111,12 @@ public class ShogunConversation {
 		this.currentResponses = currentResponses;
 	}
 	
+	public EntityPlayer getPlayer() {
+		return player;
+	}
+	
+	public ShogunNPC getNPC() {
+		return npc;
+	}
+	
 }
