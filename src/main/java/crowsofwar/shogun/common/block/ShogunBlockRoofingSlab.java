@@ -6,6 +6,7 @@ import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import crowsofwar.shogun.common.management.ShogunBlocks;
 
 public class ShogunBlockRoofingSlab extends BlockSlab {
@@ -35,6 +36,11 @@ public class ShogunBlockRoofingSlab extends BlockSlab {
 	@Override
 	protected ItemStack createStackedBlock(int metadata) {
 		return new ItemStack(Item.getItemFromBlock(ShogunBlocks.blockRoofingSlab), 2, metadata & 7);
+	}
+	
+	@Override
+	public Item getItem(World p_149694_1_, int p_149694_2_, int p_149694_3_, int p_149694_4_) {
+		return Item.getItemFromBlock(this);
 	}
 	
 }
