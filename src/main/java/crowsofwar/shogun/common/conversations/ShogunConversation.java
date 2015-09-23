@@ -96,6 +96,27 @@ public class ShogunConversation {
 	}
 	
 	/**
+	 * Get the current response, null if the current stage is not a response or if there are no stages
+	 * @return
+	 */
+	public ShogunResponse getCurrentResponse() {
+		ShogunConversationStage stage = getCurrentStage();
+		return stage == null ? null : (stage instanceof ShogunResponse ? (ShogunResponse) stage : null);
+	}
+	
+	/**
+	 * Get an array containing the prompt, then the response. This only works if the latest stage was a
+	 * response.
+	 * @return
+	 */
+	public ShogunConversationStage[] getPromptResponse() {
+		if (getCurrentResponse() != null) {
+			return new ShogunConversationStage[] { stages.get(stages.size() - 2), stages.get(stages.size() - 1) };
+		}
+		return null;
+	}
+	
+	/**
 	 * Get the responses for this current prompt. Null if there is no
 	 * open prompt or if nothing happened in the conversation.
 	 * @return
