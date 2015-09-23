@@ -167,7 +167,7 @@ public class ShogunConversation {
 	}
 	
 	public boolean justStarted() {
-		return currentResponses.size() == 0;
+		return stages.size() == 0;
 	}
 	
 	public EntityPlayer getPlayer() {
