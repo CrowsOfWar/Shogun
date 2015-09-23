@@ -20,7 +20,7 @@ public class ShogunAIStayInConversation extends EntityAIBase {
 	
 	@Override
 	public boolean continueExecuting() {
-		if (shouldExecute()) {
+		if (shouldExecute() && npc.getDistanceSqToEntity(npc.getPlayerTalkingTo()) > 3*3) {
 			npc.getNavigator().tryMoveToEntityLiving(npc.getPlayerTalkingTo(), 1);
 			npc.getLookHelper().setLookPositionWithEntity(npc.getPlayerTalkingTo(), 20, 20);
 			return true;
