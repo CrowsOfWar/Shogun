@@ -81,8 +81,14 @@ public class ShogunGUIConversation extends GuiContainer implements ShogunConvers
 	
 	@Override
 	public void actionPerformed(GuiButton button) {
-		getConversation().addToHistory(getConversation().getCurrentResponses().get(button.id));
-		Shogun.network.sendToServer(new ShogunPacketC2SConversationRespond(button.id));
+		if (getConversation().conversationEnded()) {
+			Minecraft.getMinecraft().thePlayer.closeScreen();
+		} else {
+			getConversation().addToHistory(getConversation().getCurrentResponses().get(button.id));
+			Shogun.network.sendToServer(new ShogunPacketC2SConversationRespond(button.id));
+			if (getConversation().conversationEnded())
+				Minecraft.getMinecraft().thePlayer.closeScreenNoPacket(); // packet is sent by server
+		}
 	}
 	
 }

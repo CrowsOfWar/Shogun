@@ -43,9 +43,12 @@ public class ShogunPacketC2SConversationRespond implements IMessage {
 				EntityPlayer player = ctx.getServerHandler().playerEntity;
 				if (player.openContainer instanceof ShogunContainerConversation) {
 					ShogunConversation currentConversation = ((ShogunContainerConversation) player.openContainer).getConversation();
-					List<ShogunResponse> currentResponseList = currentConversation.getCurrentResponses();
-					if (message.response >= 0 && message.response < currentResponseList.size()) {
-						currentConversation.addToHistory(ShogunResponse.getByID(message.response));
+					if (!currentConversation.conversationEnded()) {
+						List<ShogunResponse> currentResponseList = currentConversation.getCurrentResponses();
+						if (message.response >= 0 && message.response < currentResponseList.size()) {
+							currentConversation.addToHistory(ShogunResponse.getByID(message.response));
+							if (currentConversation.conversationEnded()) player.closeScreen();
+						}
 					}
 				}
 			}
