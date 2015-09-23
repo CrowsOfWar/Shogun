@@ -7,6 +7,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.StatCollector;
+import cpw.mods.fml.client.config.GuiButtonExt;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import crowsofwar.shogun.Shogun;
@@ -61,7 +62,7 @@ public class ShogunGUIConversation extends GuiContainer implements ShogunConvers
 		buttonList.clear();
 		List<ShogunResponse> responses = getConversation().getCurrentResponses();
 		for (int i = 0; i < responses.size(); i++) {
-			buttonList.add(new GuiButton(i, 10, (i + 1) * 30, 400, 20,
+			buttonList.add(new GuiButtonExt(i, width - 150 - 10, (i + 1) * 20, 150, 15,
 					StatCollector.translateToLocalFormatted("shogun.response." + responses.get(i).getLanguageKey())));
 		}
 	}
