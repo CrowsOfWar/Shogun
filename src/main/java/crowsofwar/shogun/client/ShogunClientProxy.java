@@ -8,6 +8,7 @@ import cpw.mods.fml.common.FMLLog;
 import crowsofwar.shogun.client.gui.ShogunGUIConversation;
 import crowsofwar.shogun.client.render.ShogunRenderNPC;
 import crowsofwar.shogun.common.ShogunCommonProxy;
+import crowsofwar.shogun.common.conversations.ShogunConversation;
 import crowsofwar.shogun.common.data.ShogunPlayerData;
 import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
 import crowsofwar.shogun.common.entity.ShogunNPCPeasant;
@@ -27,7 +28,8 @@ public class ShogunClientProxy extends ShogunCommonProxy {
 		ShogunPlayerData data = ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player);
 		switch (id) {
 			case ID_CONVERSATION: {
-				return new ShogunGUIConversation(new ShogunContainerConversation(player, data.getTalkingToNPC(world)));
+				return new ShogunGUIConversation(new ShogunContainerConversation(new ShogunConversation(
+						player, data.getTalkingToNPC(world))));
 			}
 		}
 		

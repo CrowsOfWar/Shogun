@@ -1,13 +1,14 @@
 package crowsofwar.shogun.common.gui;
 
+import static crowsofwar.shogun.common.management.ShogunGuiIDs.ID_CONVERSATION;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.network.IGuiHandler;
 import crowsofwar.shogun.Shogun;
+import crowsofwar.shogun.common.conversations.ShogunConversation;
 import crowsofwar.shogun.common.data.ShogunPlayerData;
 import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
-import static crowsofwar.shogun.common.management.ShogunGuiIDs.*;
 
 /**
  * The GUI handler for the Shogun mod - keeps track of GUI.
@@ -21,7 +22,7 @@ public class ShogunGuiHandler implements IGuiHandler {
 		ShogunPlayerData data = ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player);
 		switch (id) {
 			case ID_CONVERSATION: {
-				return new ShogunContainerConversation(player, data.getTalkingToNPC(world));
+				return new ShogunContainerConversation(new ShogunConversation(player, data.getTalkingToNPC(world)));
 			}
 		}
 		
