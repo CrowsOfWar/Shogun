@@ -4,6 +4,8 @@ import io.netty.buffer.ByteBuf;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import crowsofwar.shogun.Shogun;
 import crowsofwar.shogun.common.ai.ShogunAIStayInConversation;
+import crowsofwar.shogun.common.conversations.ShogunConversation;
+import crowsofwar.shogun.common.conversations.ShogunPrompt;
 import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
 import crowsofwar.shogun.common.data.ShogunWorldData;
 import crowsofwar.shogun.common.management.ShogunGuiIDs;
@@ -108,6 +110,13 @@ public abstract class ShogunNPC extends EntityAgeable implements IEntityAddition
 	 */
 	protected boolean engageInConversation(EntityPlayer player) {
 		return false;
+	}
+	
+	/**
+	 * Get the next prompt in the conversation. Return null to end the conversation.
+	 */
+	public ShogunPrompt getNextConversationPrompt(ShogunConversation conversation) {
+		return null;
 	}
 	
 	// IMPLEMENTATION OF VANILLA METHODS

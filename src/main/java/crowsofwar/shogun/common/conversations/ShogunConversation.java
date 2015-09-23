@@ -55,6 +55,7 @@ public class ShogunConversation {
 			currentResponses = getResponsesForCurrentPrompt();
 		} else {
 			currentResponses = null;
+			addToHistory(npc.getNextConversationPrompt(this));
 		}
 	}
 	
