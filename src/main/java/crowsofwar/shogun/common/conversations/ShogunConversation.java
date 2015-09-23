@@ -64,7 +64,6 @@ public class ShogunConversation {
 	}
 	
 	public void addToHistory(ShogunConversationStage stage) {
-		System.out.println("Adding stage to history: " + stage);
 		if (getCurrentStage() != null && getCurrentStage().getClass() == stage.getClass()) {
 			FMLLog.bigWarning("Shogun> Someone is messing around with conversations and is trying to add a conversation stage " +
 					"out of order. It's supposed to be prompt -> response, prompt -> response, but the order has been broken. " +
@@ -81,7 +80,6 @@ public class ShogunConversation {
 			}
 			
 		} else {
-			System.out.println("Recieved respose; setting current responses to null");
 			currentResponses = null;
 			ShogunPrompt next = npc.getNextConversationPrompt(this);
 			if (next == null) {
@@ -167,7 +165,6 @@ public class ShogunConversation {
 	 */
 	public void overrideCurrentResponses(List<ShogunResponse> currentResponses) {
 		this.currentResponses = currentResponses;
-		System.out.println("OVerride current responses to  "+ this.currentResponses);
 	}
 	
 	public boolean justStarted() {

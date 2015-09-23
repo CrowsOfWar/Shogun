@@ -36,7 +36,6 @@ public class ShogunClientProxy extends ShogunCommonProxy {
 			case ID_CONVERSATION: {
 				if (currentConversation == null)
 					setCurrentConversation(new ShogunConversation(player, data.getTalkingToNPC(world)));
-				System.out.println("Set conversation to " + currentConversation);
 				return new ShogunGUIConversation(new ShogunContainerConversation(currentConversation));
 			}
 		}
@@ -52,7 +51,6 @@ public class ShogunClientProxy extends ShogunCommonProxy {
 	
 	@Override
 	public void setCurrentConversation(ShogunConversation conversation) {
-		System.out.println("Set conversation to " + conversation);
 		this.currentConversation = conversation;
 	}
 	

@@ -45,7 +45,6 @@ public class ShogunContainerConversation extends Container {
 		super.onContainerClosed(player);
 		getNPC().talkTo(null);
 		ShogunPlayerDataFetcher.FETCHER.getDataPerformance(player).setTalkingTo(-1);
-		System.out.println("On container closing");
 		Shogun.proxy.setCurrentConversation(null);
 	}
 	

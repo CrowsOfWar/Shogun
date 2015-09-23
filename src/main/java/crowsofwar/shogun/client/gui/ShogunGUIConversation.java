@@ -24,7 +24,6 @@ public class ShogunGUIConversation extends GuiContainer implements ShogunConvers
 	
 	public ShogunGUIConversation(Container container) {
 		super(container);
-		System.out.println(getConversation());
 		getConversation().watchChangeReciever(this);
 		needToAddButtons = true;
 	}
@@ -59,15 +58,12 @@ public class ShogunGUIConversation extends GuiContainer implements ShogunConvers
 	}
 	
 	private void addButtons() {
-		System.out.println("BUTTONS! for prompt " + getConversation().getCurrentPrompt());
 		buttonList.clear();
 		List<ShogunResponse> responses = getConversation().getCurrentResponses();
 		for (int i = 0; i < responses.size(); i++) {
 			buttonList.add(new GuiButton(i, 10, (i + 1) * 30, 400, 20,
 					StatCollector.translateToLocalFormatted("shogun.response." + responses.get(i).getLanguageKey())));
 		}
-		System.out.println("button list is now:" + buttonList);
-//		System.out.println(System.identityHashCode(buttonList));
 	}
 	
 	@Override
