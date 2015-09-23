@@ -64,7 +64,7 @@ public class ShogunConversation {
 	}
 	
 	public void addToHistory(ShogunConversationStage stage) {
-		if (getCurrentStage().getClass() != stage.getClass()) {
+		if (getCurrentStage() != null && getCurrentStage().getClass() != stage.getClass()) {
 			FMLLog.bigWarning("Shogun> Someone is messing around with conversations and is trying to add a conversation stage " +
 					"out of order. It's supposed to be prompt -> response, prompt -> response, but the order has been broken.");
 			FMLLog.bigWarning("Debug:");
