@@ -49,6 +49,7 @@ public class ShogunConversation {
 		stages = new ArrayList<ShogunConversationStage>();
 		currentResponses = null;
 		changeRecievers = new ArrayList<ShogunConversationChangeReciever>();
+		addToHistory(npc.getNextConversationPrompt(this));
 	}
 	
 	public void watchChangeReciever(ShogunConversationChangeReciever reciever) {
