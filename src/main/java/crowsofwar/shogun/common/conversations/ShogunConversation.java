@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import cpw.mods.fml.common.FMLLog;
+import crowsofwar.shogun.common.entity.ShogunNPC;
 
 /**
  * <p>By definition, a conversation is an exchange of questions
@@ -25,12 +27,35 @@ public class ShogunConversation {
 	
 	private final List<ShogunConversationStage> stages;
 	
-	public ShogunConversation() {
+	/**
+	 * The responses currently available. This is null when the current stage is a
+	 * response.
+	 */
+	private List<ShogunResponse> currentResponses;
+	
+	private final EntityPlayer player;
+	private final ShogunNPC npc;
+	
+	public ShogunConversation(EntityPlayer player, ShogunNPC npc) {
+		this.player = player;
+		this.npc = npc;
 		stages = new ArrayList<ShogunConversationStage>();
+		currentResponses = null;
 	}
 	
 	public void addToHistory(ShogunConversationStage stage) {
+		if (getCurrentStage().getClass() != stage.getClass()) {
+			FMLLog.bigWarning("Shogun> Someone is messing around with conversations and is trying to add a conversation stage " +
+					"out of order. It's supposed to be prompt -> response, prompt -> response, but the order has been broken.");
+			FMLLog.bigWarning("Debug:");
+			Thread.dumpStack();
+		}
 		stages.add(stage);
+		if (stage instanceof ShogunPrompt) {
+			currentResponses = getResponsesForCurrentPrompt();
+		} else {
+			currentResponses = null;
+		}
 	}
 	
 	/**
@@ -55,7 +80,7 @@ public class ShogunConversation {
 	 * open prompt or if nothing happened in the conversation.
 	 * @return
 	 */
-	public List<ShogunResponse> getResponsesForCurrentPrompt(EntityPlayer player) {
+	private List<ShogunResponse> getResponsesForCurrentPrompt() {
 		ShogunPrompt prompt = getCurrentPrompt();
 		if (prompt != null) {
 			List<ShogunResponse> res = prompt.getAllResponses();
@@ -66,6 +91,24 @@ public class ShogunConversation {
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Get a list of responses for the current prompt. This is null if there is not a prompt
+	 * right now.
+	 * @return
+	 */
+	public List<ShogunResponse> getCurrentResponses() {
+		return currentResponses;
+	}
+	
+	/**
+	 * Override the list of current responses to that list. The list of current responses is
+	 * automatically calculated, so only do this if you know what you're doing.
+	 * @param currentResponses
+	 */
+	public void overrideCurrentResponses(List<ShogunResponse> currentResponses) {
+		this.currentResponses = currentResponses;
 	}
 	
 }
