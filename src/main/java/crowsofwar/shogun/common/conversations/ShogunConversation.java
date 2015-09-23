@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.relauncher.Side;
+import crowsofwar.shogun.Shogun;
 import crowsofwar.shogun.common.entity.ShogunNPC;
+import crowsofwar.shogun.common.packet.ShogunPacketS2CConversationUpdate;
 
 /**
  * <p>By definition, a conversation is an exchange of questions
@@ -53,6 +58,11 @@ public class ShogunConversation {
 		stages.add(stage);
 		if (stage instanceof ShogunPrompt) {
 			currentResponses = getResponsesForCurrentPrompt();
+			
+			if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+				Shogun.network.sendTo(new ShogunPacketS2CConversationUpdate((ShogunPrompt) stage, currentResponses),
+				(EntityPlayerMP) player);
+			
 		} else {
 			currentResponses = null;
 			addToHistory(npc.getNextConversationPrompt(this));
