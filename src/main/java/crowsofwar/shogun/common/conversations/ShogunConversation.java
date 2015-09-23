@@ -67,8 +67,6 @@ public class ShogunConversation {
 		if (getCurrentStage() != null && getCurrentStage().getClass() == stage.getClass()) {
 			FMLLog.bigWarning("Shogun> Someone is messing around with conversations and is trying to add a conversation stage " +
 					"out of order. It's supposed to be prompt -> response, prompt -> response, but the order has been broken.");
-			FMLLog.bigWarning("Debug:");
-			Thread.dumpStack();
 		}
 		stages.add(stage);
 		if (stage instanceof ShogunPrompt) {
