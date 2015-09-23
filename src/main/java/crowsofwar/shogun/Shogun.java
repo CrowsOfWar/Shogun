@@ -15,6 +15,7 @@ import crowsofwar.shogun.common.entity.ShogunNPCPeasant;
 import crowsofwar.shogun.common.entity.ShogunNPCTestBrain;
 import crowsofwar.shogun.common.gui.ShogunGuiHandler;
 import crowsofwar.shogun.common.management.ShogunBlocks;
+import crowsofwar.shogun.common.management.ShogunItems;
 import crowsofwar.shogun.common.management.ShogunPacketIDs;
 import crowsofwar.shogun.common.packet.ShogunPacketC2SConversationRespond;
 import crowsofwar.shogun.common.packet.ShogunPacketS2CConversationUpdate;
@@ -39,6 +40,7 @@ public class Shogun {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		ShogunBlocks.initAndRegister();
+		ShogunItems.initAndRegister();
 		
 		registerEntity(ShogunNPCPeasant.class, "ShogunPeasant");
 		registerEntity(ShogunNPCTestBrain.class, "ShogunTest");
