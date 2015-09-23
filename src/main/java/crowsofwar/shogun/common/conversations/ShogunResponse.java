@@ -27,4 +27,13 @@ public enum ShogunResponse implements ShogunConversationStage {
 		return langKey;
 	}
 	
+	public int id() {
+		return ordinal();
+	}
+	
+	public static ShogunResponse getByID(int id) {
+		for (ShogunResponse response : values()) if (response.id() == id) return response;
+		return null;
+	}
+	
 }

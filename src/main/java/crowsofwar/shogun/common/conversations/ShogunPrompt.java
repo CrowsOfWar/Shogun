@@ -84,4 +84,13 @@ public enum ShogunPrompt implements ShogunConversationStage {
 		
 	}
 	
+	public int id() {
+		return ordinal();
+	}
+	
+	public static ShogunPrompt getByID(int id) {
+		for (ShogunPrompt prompt : values()) if (prompt.id() == id) return prompt;
+		return null;
+	}
+	
 }
