@@ -4,7 +4,7 @@ shogun.prompt.whatIsIt=What is it?
 shogun.prompt.hello=Hello
 shogun.prompt.askBuyGoods=Hello, noble blah. Would you like to buy my high-quality goods?
 shogun.prompt.okay=Okay
-shogun.prompt.hereAreMyGoods=Fantastic! Here are my wares:
+shogun.prompt.showGoods=Fantastic! Here are my wares:
 shogun.prompt.goAwayRude=Horrible!
 
 shogun.response.ok=Okay
