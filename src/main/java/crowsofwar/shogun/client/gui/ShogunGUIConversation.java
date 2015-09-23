@@ -12,6 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 import crowsofwar.shogun.Shogun;
 import crowsofwar.shogun.common.conversations.ShogunConversation;
 import crowsofwar.shogun.common.conversations.ShogunConversationChangeReciever;
+import crowsofwar.shogun.common.conversations.ShogunPrompt;
 import crowsofwar.shogun.common.conversations.ShogunResponse;
 import crowsofwar.shogun.common.entity.ShogunNPC;
 import crowsofwar.shogun.common.packet.ShogunPacketC2SConversationRespond;
@@ -39,7 +40,8 @@ public class ShogunGUIConversation extends GuiContainer implements ShogunConvers
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 //		fontRendererObj.drawString("Prompt: " + getConversation().getCurrentPrompt(), 10, 10, 0x000000, false);
-		drawCenteredString(fontRendererObj, StatCollector.translateToLocalFormatted("shogun.prompt." + getConversation().getCurrentPrompt().getLanguageKey()), width / 2, 10, 0xffffff);
+		ShogunPrompt prompt = getConversation().getCurrentPrompt();
+		drawCenteredString(fontRendererObj, StatCollector.translateToLocalFormatted("shogun.prompt." + (prompt == null ? "thinking" : prompt.getLanguageKey())), width / 2, 10, 0xffffff);
 	}//GuiCrafting
 
 	@Override
