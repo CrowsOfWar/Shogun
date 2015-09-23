@@ -42,6 +42,7 @@ public class ShogunConversation {
 	private final ShogunNPC npc;
 	
 	private final List<ShogunConversationChangeReciever> changeRecievers;
+	private boolean ended;
 	
 	public ShogunConversation(EntityPlayer player, ShogunNPC npc) {
 		this.player = player;
@@ -49,7 +50,13 @@ public class ShogunConversation {
 		stages = new ArrayList<ShogunConversationStage>();
 		currentResponses = null;
 		changeRecievers = new ArrayList<ShogunConversationChangeReciever>();
-		addToHistory(npc.getNextConversationPrompt(this));
+		ended = false;
+		ShogunPrompt next = npc.getNextConversationPrompt(this);
+		if (next == null) {
+			ended = true;
+		} else {
+			addToHistory(next);
+		}
 	}
 	
 	public void watchChangeReciever(ShogunConversationChangeReciever reciever) {
@@ -73,7 +80,13 @@ public class ShogunConversation {
 			
 		} else {
 			currentResponses = null;
-			addToHistory(npc.getNextConversationPrompt(this));
+			ShogunPrompt next = npc.getNextConversationPrompt(this);
+			if (next == null) {
+				ended = true;
+				return;
+			} else {
+				addToHistory(next);
+			}
 		}
 		
 		for (ShogunConversationChangeReciever rec : changeRecievers) rec.onChanged();
@@ -159,6 +172,10 @@ public class ShogunConversation {
 	
 	public ShogunNPC getNPC() {
 		return npc;
+	}
+	
+	public boolean conversationEnded() {
+		return ended;
 	}
 	
 }
