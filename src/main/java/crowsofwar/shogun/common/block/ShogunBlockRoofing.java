@@ -5,10 +5,10 @@ import net.minecraft.block.material.Material;
 
 public class ShogunBlockRoofing extends Block {
 	
-	public ShogunBlockRoofing() {
+	public ShogunBlockRoofing(String color) {
 		super(Material.wood);
-		setBlockTextureName("shogun:roofing");
-		setBlockName("roofing");
+		setBlockTextureName("shogun:roofing_" + color);
+		setBlockName("roofing_" + color);
 		setHardness(1.5f);
 		setResistance(4);
 	}

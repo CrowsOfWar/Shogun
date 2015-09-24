@@ -11,13 +11,16 @@ import crowsofwar.shogun.common.management.ShogunBlocks;
 
 public class ShogunBlockRoofingSlab extends BlockSlab {
 	
-	public ShogunBlockRoofingSlab(boolean doubleSlab) {
+	private final int color;
+	
+	public ShogunBlockRoofingSlab(int color, boolean doubleSlab) {
 		super(doubleSlab, Material.wood);
-		setBlockTextureName("shogun:roofing");
-		setBlockName("roofing");
+		setBlockTextureName("shogun:roofing_" + ShogunBlocks.colors[color]);
+		setBlockName("roofing_" + ShogunBlocks.colors[color]);
 		setHardness(1.2f);
 		setResistance(3);
 		setLightOpacity(0);
+		this.color = color;
 	}
 	
 	/**
@@ -25,17 +28,17 @@ public class ShogunBlockRoofingSlab extends BlockSlab {
 	 */
 	@Override
 	public String func_150002_b(int metadata) {
-		return ShogunBlocks.blockRoofing.getUnlocalizedName();
+		return ShogunBlocks.blockRoofing[color].getUnlocalizedName();
 	}
 	
 	@Override
 	public Item getItemDropped(int p_149650_1_, Random p_149650_2_, int p_149650_3_) {
-		return Item.getItemFromBlock(ShogunBlocks.blockRoofingSlab);
+		return Item.getItemFromBlock(ShogunBlocks.blockRoofingSlab[color]);
 	}
 	
 	@Override
 	protected ItemStack createStackedBlock(int metadata) {
-		return new ItemStack(Item.getItemFromBlock(ShogunBlocks.blockRoofingSlab), 2, metadata & 7);
+		return new ItemStack(Item.getItemFromBlock(ShogunBlocks.blockRoofingSlab[color]), 2, metadata & 7);
 	}
 	
 	@Override
