@@ -22,7 +22,7 @@ import crowsofwar.shogun.common.item.ShogunItemRoofingSlab;
  */
 public class ShogunBlocks {
 	
-	public static final String[] colors = { "gray", "black", "red", "green" };
+	public static final String[] colors = { "white", "gray", "black", "red", "green" };
 	public static Block blockRoofing[];
 	public static Block blockRoofingStairs[];
 	public static BlockSlab blockRoofingSlab[];
