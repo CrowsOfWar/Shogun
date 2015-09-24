@@ -47,10 +47,10 @@ public class ShogunBlocks {
 			blockRoofingSlab[i] = new ShogunBlockRoofingSlab(i, false);
 			blockRoofingSlabDouble[i] = new ShogunBlockRoofingSlab(i, true);
 			
-			GameRegistry.registerBlock(blockRoofing[i], "roofing");
-			GameRegistry.registerBlock(blockRoofingStairs[i], "roofingStairs");
-			GameRegistry.registerBlock(blockRoofingSlab[i], ShogunItemRoofingSlab.class, "roofing_slab", blockRoofingSlab[i], blockRoofingSlabDouble[i], false);
-			GameRegistry.registerBlock(blockRoofingSlabDouble[i], ShogunItemRoofingSlab.class, "roofing_double_slab", blockRoofingSlab[i], blockRoofingSlabDouble[i], true);
+			GameRegistry.registerBlock(blockRoofing[i], "roofing_" + color);
+			GameRegistry.registerBlock(blockRoofingStairs[i], "roofing_stairs_" + color);
+			GameRegistry.registerBlock(blockRoofingSlab[i], ShogunItemRoofingSlab.class, "roofing_slab_" + color, blockRoofingSlab[i], blockRoofingSlabDouble[i], false);
+			GameRegistry.registerBlock(blockRoofingSlabDouble[i], ShogunItemRoofingSlab.class, "roofing_double_slab_" + color, blockRoofingSlab[i], blockRoofingSlabDouble[i], true);
 		}
 		
 	}
