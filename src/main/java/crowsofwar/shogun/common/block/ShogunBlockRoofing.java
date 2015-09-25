@@ -11,6 +11,7 @@ public class ShogunBlockRoofing extends Block {
 		setBlockName("roofing_" + color);
 		setHardness(1.5f);
 		setResistance(4);
+		setStepSound(soundTypeWood);
 	}
 	
 }

@@ -20,6 +20,7 @@ public class ShogunBlockRoofingSlab extends BlockSlab {
 		setHardness(1.2f);
 		setResistance(3);
 		setLightOpacity(0);
+		setStepSound(soundTypeWood);
 		this.color = color;
 	}
 	
