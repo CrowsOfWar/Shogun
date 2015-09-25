@@ -1,5 +1,6 @@
 package crowsofwar.shogun.common.block;
 
+import crowsofwar.shogun.common.management.ShogunCreativeTabs;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
@@ -12,6 +13,7 @@ public class ShogunBlockRoofing extends Block {
 		setHardness(1.5f);
 		setResistance(4);
 		setStepSound(soundTypeWood);
+		setCreativeTab(ShogunCreativeTabs.tabBuilding);
 	}
 	
 }

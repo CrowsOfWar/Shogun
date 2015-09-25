@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import crowsofwar.shogun.common.management.ShogunBlocks;
+import crowsofwar.shogun.common.management.ShogunCreativeTabs;
 
 public class ShogunBlockRoofingSlab extends BlockSlab {
 	
@@ -21,6 +22,7 @@ public class ShogunBlockRoofingSlab extends BlockSlab {
 		setResistance(3);
 		setLightOpacity(0);
 		setStepSound(soundTypeWood);
+		setCreativeTab(ShogunCreativeTabs.tabBuilding);
 		this.color = color;
 	}
 	

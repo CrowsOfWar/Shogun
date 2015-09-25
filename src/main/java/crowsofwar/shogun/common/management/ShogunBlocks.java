@@ -13,6 +13,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import crowsofwar.shogun.common.block.ShogunBlockRoofing;
 import crowsofwar.shogun.common.block.ShogunBlockRoofingSlab;
 import crowsofwar.shogun.common.item.ShogunItemRoofingSlab;
+import static crowsofwar.shogun.common.management.ShogunCreativeTabs.*;
 
 /**
  * Similar to the vanilla Blocks class, but for Shogun. This
@@ -43,7 +44,7 @@ public class ShogunBlocks {
 			
 			blockRoofing[i] = new ShogunBlockRoofing(color);
 			blockRoofingStairs[i] = GoreCoreStairConstructorHack.blockStairs(blockRoofing[i], 0)
-					.setBlockName("roofing_stairs").setLightOpacity(0).setStepSound(Block.soundTypeWood);
+					.setBlockName("roofing_stairs").setLightOpacity(0).setStepSound(Block.soundTypeWood).setCreativeTab(tabBuilding);
 			blockRoofingSlab[i] = new ShogunBlockRoofingSlab(i, false);
 			blockRoofingSlabDouble[i] = new ShogunBlockRoofingSlab(i, true);
 			
