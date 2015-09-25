@@ -44,7 +44,7 @@ public class ShogunBlocks {
 			
 			blockRoofing[i] = new ShogunBlockRoofing(color);
 			blockRoofingStairs[i] = GoreCoreStairConstructorHack.blockStairs(blockRoofing[i], 0)
-					.setBlockName("roofing_stairs").setLightOpacity(0).setStepSound(Block.soundTypeWood).setCreativeTab(tabBuilding);
+					.setBlockName("roofing").setLightOpacity(0).setStepSound(Block.soundTypeWood).setCreativeTab(tabBuilding);
 			blockRoofingSlab[i] = new ShogunBlockRoofingSlab(i, false);
 			blockRoofingSlabDouble[i] = new ShogunBlockRoofingSlab(i, true);
 			
