@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemSlab;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
+import crowsofwar.shogun.common.block.ShogunBlockFarmland;
 import crowsofwar.shogun.common.block.ShogunBlockRoofing;
 import crowsofwar.shogun.common.block.ShogunBlockRoofingSlab;
 import crowsofwar.shogun.common.item.ShogunItemRoofingSlab;
@@ -28,6 +29,7 @@ public class ShogunBlocks {
 	public static Block blockRoofingStairs[];
 	public static BlockSlab blockRoofingSlab[];
 	public static BlockSlab blockRoofingSlabDouble[];
+	public static Block blockFarmland;
 	
 	/**
 	 * Initialize the blocks and then register them - this is
@@ -53,6 +55,9 @@ public class ShogunBlocks {
 			GameRegistry.registerBlock(blockRoofingSlab[i], ShogunItemRoofingSlab.class, "roofing_" + color + "_slab", blockRoofingSlab[i], blockRoofingSlabDouble[i], false);
 			GameRegistry.registerBlock(blockRoofingSlabDouble[i], ShogunItemRoofingSlab.class, "roofing_" + color + "_double_slab", blockRoofingSlab[i], blockRoofingSlabDouble[i], true);
 		}
+		
+		blockFarmland = new ShogunBlockFarmland();
+		GameRegistry.registerBlock(blockFarmland, "sfarmland");
 		
 	}
 }

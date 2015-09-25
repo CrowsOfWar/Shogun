@@ -16,6 +16,7 @@ shogun.response.goAwayRude=Get away from me you scum!
 
 tile.roofing.name=Roofing
 tile.roofingStairs.name=Roofing
+tile.sfarmland.name=Farmland
 
 itemGroup.shogunBuilding=Shogun: Building
 itemGroup.shogunCombat=Shogun: Combat

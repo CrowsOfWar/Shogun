@@ -3,9 +3,11 @@ package crowsofwar.shogun.client;
 import static crowsofwar.shogun.common.management.ShogunGuiIDs.ID_CONVERSATION;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLLog;
 import crowsofwar.shogun.client.gui.ShogunGUIConversation;
+import crowsofwar.shogun.client.render.ShogunRenderFarmland;
 import crowsofwar.shogun.client.render.ShogunRenderNPC;
 import crowsofwar.shogun.common.ShogunCommonProxy;
 import crowsofwar.shogun.common.conversations.ShogunConversation;
@@ -14,6 +16,7 @@ import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
 import crowsofwar.shogun.common.entity.ShogunNPCPeasant;
 import crowsofwar.shogun.common.entity.ShogunNPCTestBrain;
 import crowsofwar.shogun.common.gui.ShogunContainerConversation;
+import crowsofwar.shogun.common.management.ShogunRenderIDs;
 
 public class ShogunClientProxy extends ShogunCommonProxy {
 	
@@ -27,6 +30,11 @@ public class ShogunClientProxy extends ShogunCommonProxy {
 	public void sideSpecifics() {
 		RenderingRegistry.registerEntityRenderingHandler(ShogunNPCPeasant.class, new ShogunRenderNPC("peasant", 2));
 		RenderingRegistry.registerEntityRenderingHandler(ShogunNPCTestBrain.class, new ShogunRenderNPC("peasant", 1));
+		addISBRH(new ShogunRenderFarmland());
+	}
+	
+	private void addISBRH(ISimpleBlockRenderingHandler handler) {
+		RenderingRegistry.registerBlockHandler(ShogunRenderIDs.ID_FARMLAND = RenderingRegistry.getNextAvailableRenderId(), handler);
 	}
 	
 	@Override
