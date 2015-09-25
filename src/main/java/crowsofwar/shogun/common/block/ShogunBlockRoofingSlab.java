@@ -16,7 +16,7 @@ public class ShogunBlockRoofingSlab extends BlockSlab {
 	public ShogunBlockRoofingSlab(int color, boolean doubleSlab) {
 		super(doubleSlab, Material.wood);
 		setBlockTextureName("shogun:roofing_" + ShogunBlocks.colors[color]);
-		setBlockName("roofing_" + ShogunBlocks.colors[color]);
+		setBlockName("roofing");
 		setHardness(1.2f);
 		setResistance(3);
 		setLightOpacity(0);
