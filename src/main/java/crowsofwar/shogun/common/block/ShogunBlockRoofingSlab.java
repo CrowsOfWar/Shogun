@@ -22,7 +22,7 @@ public class ShogunBlockRoofingSlab extends BlockSlab {
 		setResistance(3);
 		setLightOpacity(0);
 		setStepSound(soundTypeWood);
-		setCreativeTab(ShogunCreativeTabs.tabBuilding);
+		setCreativeTab(doubleSlab ? null : ShogunCreativeTabs.tabBuilding);
 		this.color = color;
 	}
 	
