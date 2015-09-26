@@ -1,13 +1,13 @@
 package crowsofwar.shogun.common.block;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
-import crowsofwar.gorecore.GoreCore;
-import crowsofwar.gorecore.util.GoreCoreBlockSide;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import crowsofwar.shogun.common.management.ShogunCreativeTabs;
 import crowsofwar.shogun.common.management.ShogunRenderIDs;
 
@@ -45,7 +45,7 @@ public class ShogunBlockFarmland extends Block {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public IIcon getIcon(int side, int metadata) {
-		return side == GoreCoreBlockSide.TOP.side() ? iconTop : iconSide;
+		return side == ForgeDirection.UP.ordinal() ? iconTop : iconSide;
 	}
 	
 	@Override
@@ -57,5 +57,16 @@ public class ShogunBlockFarmland extends Block {
 	public boolean isOpaqueCube() {
 		return false;
 	}
+	
+	@Override
+	public boolean isBlockSolid(IBlockAccess p_149747_1_, int p_149747_2_, int p_149747_3_, int p_149747_4_, int p_149747_5_) {
+		return false;
+	}
+	
+//	@Override
+//	@SideOnly(Side.CLIENT)
+//	public int getRenderBlockPass() {
+//		return 1;
+//	}
 	
 }
