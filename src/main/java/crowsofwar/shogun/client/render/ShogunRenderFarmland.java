@@ -10,6 +10,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import crowsofwar.shogun.Shogun;
 import crowsofwar.shogun.common.management.ShogunBlocks;
 import crowsofwar.shogun.common.management.ShogunRenderIDs;
 
@@ -25,49 +26,51 @@ public class ShogunRenderFarmland implements ISimpleBlockRenderingHandler {
 		Tessellator tessellator = Tessellator.instance;
 		
 		Block textureBlock = block;
-		tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
-		renderer.setRenderBounds(0, 0, 0, 1, 0.5, 1);
-		
-		tessellator.setColorOpaque_F(0.6f, 0.6f, 0.6f);
-		renderer.renderFaceXNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.WEST.ordinal(), 0));
-		renderer.renderFaceXPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.EAST.ordinal(), 0));
-		tessellator.setColorOpaque_F(0.5f, 0.5f, 0.5f);
-		renderer.renderFaceYNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.DOWN.ordinal(), 0));
-		tessellator.setColorOpaque_F(1, 1, 1);
-		renderer.renderFaceYPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.UP.ordinal(), 0));
-		tessellator.setColorOpaque_F(0.8f, 0.8f, 0.8f);
-		renderer.renderFaceZNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.NORTH.ordinal(), 0));
-		renderer.renderFaceZPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.SOUTH.ordinal(), 0));
-		
-		textureBlock = Blocks.water;
-		renderer.setRenderBounds(0, 0.5, 0, 1, 0.49 + world.getBlockMetadata(x, y, z) / 60.0, 1);
-		
-		GL11.glPushMatrix();
-		GL11.glEnable(GL11.GL_BLEND);
-		tessellator.setColorOpaque_F(0.6f, 0.6f, 0.6f);
-		if (shouldSideBeRendered(world, x, y, z, ForgeDirection.WEST))
+		if (Shogun.proxy.getCurrentRenderPass() == 0) {
+			tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
+			renderer.setRenderBounds(0, 0, 0, 1, 0.5, 1);
+			
+			tessellator.setColorOpaque_F(0.6f, 0.6f, 0.6f);
 			renderer.renderFaceXNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.WEST.ordinal(), 0));
-		
-		if (shouldSideBeRendered(world, x, y, z, ForgeDirection.EAST))
 			renderer.renderFaceXPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.EAST.ordinal(), 0));
-		tessellator.setColorOpaque_F(0.5f, 0.5f, 0.5f);
-		
-		if (shouldSideBeRendered(world, x, y, z, ForgeDirection.DOWN))
+			tessellator.setColorOpaque_F(0.5f, 0.5f, 0.5f);
 			renderer.renderFaceYNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.DOWN.ordinal(), 0));
-		tessellator.setColorOpaque_F(1, 1, 1);
-		
-		if (shouldSideBeRendered(world, x, y, z, ForgeDirection.UP))
+			tessellator.setColorOpaque_F(1, 1, 1);
 			renderer.renderFaceYPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.UP.ordinal(), 0));
-		tessellator.setColorOpaque_F(0.8f, 0.8f, 0.8f);
-		
-		if (shouldSideBeRendered(world, x, y, z, ForgeDirection.NORTH))
+			tessellator.setColorOpaque_F(0.8f, 0.8f, 0.8f);
 			renderer.renderFaceZNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.NORTH.ordinal(), 0));
-		
-		if (shouldSideBeRendered(world, x, y, z, ForgeDirection.SOUTH))
 			renderer.renderFaceZPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.SOUTH.ordinal(), 0));
-		
-//		GL11.glDisable(GL11.GL_BLEND);
-		GL11.glPopMatrix();
+		} else {
+			textureBlock = Blocks.water;
+			renderer.setRenderBounds(0, 0.5, 0, 1, 0.49 + world.getBlockMetadata(x, y, z) / 60.0, 1);
+			
+//			GL11.glPushMatrix();
+//			GL11.glEnable(GL11.GL_BLEND);
+			tessellator.setColorOpaque_F(0.6f, 0.6f, 0.6f);
+			if (shouldSideBeRendered(world, x, y, z, ForgeDirection.WEST))
+				renderer.renderFaceXNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.WEST.ordinal(), 0));
+			
+			if (shouldSideBeRendered(world, x, y, z, ForgeDirection.EAST))
+				renderer.renderFaceXPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.EAST.ordinal(), 0));
+			tessellator.setColorOpaque_F(0.5f, 0.5f, 0.5f);
+			
+			if (shouldSideBeRendered(world, x, y, z, ForgeDirection.DOWN))
+				renderer.renderFaceYNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.DOWN.ordinal(), 0));
+			tessellator.setColorOpaque_F(1, 1, 1);
+			
+			if (shouldSideBeRendered(world, x, y, z, ForgeDirection.UP))
+				renderer.renderFaceYPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.UP.ordinal(), 0));
+			tessellator.setColorOpaque_F(0.8f, 0.8f, 0.8f);
+			
+			if (shouldSideBeRendered(world, x, y, z, ForgeDirection.NORTH))
+				renderer.renderFaceZNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.NORTH.ordinal(), 0));
+			
+			if (shouldSideBeRendered(world, x, y, z, ForgeDirection.SOUTH))
+				renderer.renderFaceZPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.SOUTH.ordinal(), 0));
+			
+//			GL11.glDisable(GL11.GL_BLEND);
+//			GL11.glPopMatrix();
+		}
 		
 		return false;
 	}

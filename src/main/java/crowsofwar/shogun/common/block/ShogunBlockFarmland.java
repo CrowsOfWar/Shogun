@@ -8,6 +8,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import crowsofwar.shogun.Shogun;
 import crowsofwar.shogun.common.management.ShogunCreativeTabs;
 import crowsofwar.shogun.common.management.ShogunRenderIDs;
 
@@ -63,10 +64,15 @@ public class ShogunBlockFarmland extends Block {
 		return false;
 	}
 	
-//	@Override
-//	@SideOnly(Side.CLIENT)
-//	public int getRenderBlockPass() {
-//		return 1;
-//	}
+	@Override
+	public boolean canRenderInPass(int pass) {
+		Shogun.proxy.setCurrentRenderPass(pass);
+		return true;
+	}
+	
+	@Override
+	public int getRenderBlockPass() {
+		return 1;
+	}
 	
 }
