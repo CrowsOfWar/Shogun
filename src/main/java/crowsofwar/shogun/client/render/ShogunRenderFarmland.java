@@ -89,9 +89,9 @@ public class ShogunRenderFarmland implements ISimpleBlockRenderingHandler {
 			(side == 2 && renderer.renderMinZ > 0.0D ? true : (side == 3 && renderer.renderMaxZ < 1.0D ? true : 
 			(side == 4 && renderer.renderMinX > 0.0D ? true : (side == 5 && renderer.renderMaxX < 1.0D ? true :
 			!world.getBlock(x, y, z).isOpaqueCube()))))))
-			&& world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) != ShogunBlocks.blockFarmland
-			&& world.getBlockMetadata(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) !=
-			world.getBlockMetadata(x, y, z);
+			&& !(world.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) == ShogunBlocks.blockFarmland
+			&& world.getBlockMetadata(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ) ==
+			world.getBlockMetadata(x, y, z));
 	}
 	
 }
