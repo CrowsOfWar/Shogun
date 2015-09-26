@@ -25,8 +25,9 @@ public class ShogunRenderFarmland implements ISimpleBlockRenderingHandler {
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
 		Tessellator tessellator = Tessellator.instance;
 		
-		Block textureBlock = block;
 		if (Shogun.proxy.getCurrentRenderPass() == 0) {
+			Block textureBlock = block;
+			
 			tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
 			renderer.setRenderBounds(0, 0, 0, 1, 0.5, 1);
 			
@@ -41,11 +42,9 @@ public class ShogunRenderFarmland implements ISimpleBlockRenderingHandler {
 			renderer.renderFaceZNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.NORTH.ordinal(), 0));
 			renderer.renderFaceZPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.SOUTH.ordinal(), 0));
 		} else {
-			textureBlock = Blocks.water;
-			renderer.setRenderBounds(0, 0.5, 0, 1, 0.49 + world.getBlockMetadata(x, y, z) / 60.0, 1);
+			Block textureBlock = Blocks.water;
+			renderer.setRenderBounds(0, 0.5, 0, 1, 0.49 + world.getBlockMetadata(x, y, z) / 30.0, 1);
 			
-//			GL11.glPushMatrix();
-//			GL11.glEnable(GL11.GL_BLEND);
 			tessellator.setColorOpaque_F(0.6f, 0.6f, 0.6f);
 			if (shouldSideBeRendered(world, x, y, z, ForgeDirection.WEST))
 				renderer.renderFaceXNeg(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.WEST.ordinal(), 0));
@@ -68,8 +67,6 @@ public class ShogunRenderFarmland implements ISimpleBlockRenderingHandler {
 			if (shouldSideBeRendered(world, x, y, z, ForgeDirection.SOUTH))
 				renderer.renderFaceZPos(textureBlock, x, y, z, textureBlock.getIcon(ForgeDirection.SOUTH.ordinal(), 0));
 			
-//			GL11.glDisable(GL11.GL_BLEND);
-//			GL11.glPopMatrix();
 		}
 		
 		return false;
