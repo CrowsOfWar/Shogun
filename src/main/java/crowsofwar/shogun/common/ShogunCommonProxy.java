@@ -23,4 +23,8 @@ public class ShogunCommonProxy {
 		
 	}
 	
+	public int getCurrentRenderPass() { return 0; }
+	
+	public void setCurrentRenderPass(int pass) {}
+	
 }

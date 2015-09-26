@@ -21,6 +21,7 @@ import crowsofwar.shogun.common.management.ShogunRenderIDs;
 public class ShogunClientProxy extends ShogunCommonProxy {
 	
 	private ShogunConversation currentConversation;
+	private int currentRenderPass;
 	
 	public ShogunClientProxy() {
 		currentConversation = null;
@@ -60,6 +61,16 @@ public class ShogunClientProxy extends ShogunCommonProxy {
 	@Override
 	public void setCurrentConversation(ShogunConversation conversation) {
 		this.currentConversation = conversation;
+	}
+	
+	@Override
+	public int getCurrentRenderPass() {
+		return currentRenderPass;
+	}
+	
+	@Override
+	public void setCurrentRenderPass(int pass) {
+		this.currentRenderPass = pass;
 	}
 	
 }
