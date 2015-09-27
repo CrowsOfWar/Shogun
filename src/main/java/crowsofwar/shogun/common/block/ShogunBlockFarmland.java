@@ -134,10 +134,11 @@ public class ShogunBlockFarmland extends Block {
 	
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-		if (entity.ticksExisted % 40 == 0) {
-			int metadata = world.getBlockMetadata(x, y, z);
-			world.playSoundAtEntity(entity, "random.splash", metadata / 60f + GoreCoreMathHelper.randomFloat(0, 0.25f),
-					GoreCoreMathHelper.randomFloat(0.5f, 0.65f));
+		int metadata = world.getBlockMetadata(x, y, z);
+		boolean moving = Math.abs(entity.motionX) > 0.01 || Math.abs(entity.motionY) > 0.01 || Math.abs(entity.motionZ) > 0.01;
+		if (moving && metadata > 2 && entity.ticksExisted % 15 == 0 && GoreCoreMathHelper.randomInt(0, 10) == 0) {
+			world.playSoundAtEntity(entity, "game.neutral.swim.splash", metadata / 120f + GoreCoreMathHelper.randomFloat(0, 0.1f),
+					GoreCoreMathHelper.randomFloat(0f, 0.15f));
 		}
 	}
 	
