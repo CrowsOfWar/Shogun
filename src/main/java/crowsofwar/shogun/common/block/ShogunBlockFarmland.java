@@ -92,7 +92,6 @@ public class ShogunBlockFarmland extends Block {
 	
 	@Override
 	public void updateTick(World world, int x, int y, int z, Random randomizer) {
-		System.out.println("On neighbor block change");
 		int waterLevelThis = world.getBlockMetadata(x, y, z);
 		for (int i = 0; i < ADJACENT_DIRECTIONS.length; i++) {
 			ForgeDirection dir = ADJACENT_DIRECTIONS[i];
@@ -102,11 +101,8 @@ public class ShogunBlockFarmland extends Block {
 			if (world.getBlock(modX, modY, modZ) == this) {
 				// Check water level
 				int waterLevelThat = world.getBlockMetadata(modX, modY, modZ);
-				System.out.println("Another thing to the " + dir);
-				System.out.println("THIS/THAT || " + waterLevelThis + "/" + waterLevelThat);
 				// Transfer some? IF this is <1 higher than that
 				if (waterLevelThis - 1 > waterLevelThat) {
-					System.out.println("Hahger, lawer dis and raise dat");
 					world.setBlockMetadataWithNotify(x, y, z, waterLevelThis - 1, 2);
 					world.setBlockMetadataWithNotify(modX, modY, modZ, waterLevelThat + 1, 2);
 					world.scheduleBlockUpdate(modX, modY, modZ, this, TICK_RATE_SPREAD);
