@@ -20,7 +20,8 @@ public class ShogunBlockFarmland extends Block {
 	private static final ForgeDirection[] ADJACENT_DIRECTIONS = new ForgeDirection[] {
 		ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST
 	};
-	private static final int TICK_RATE = 2;
+	private static final int TICK_RATE_SPREAD = 2;
+	private static final int TICK_RATE_STATIC = 4;
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
@@ -108,10 +109,11 @@ public class ShogunBlockFarmland extends Block {
 					System.out.println("Hahger, lawer dis and raise dat");
 					world.setBlockMetadataWithNotify(x, y, z, waterLevelThis - 1, 2);
 					world.setBlockMetadataWithNotify(modX, modY, modZ, waterLevelThat + 1, 2);
-					world.scheduleBlockUpdate(modX, modY, modZ, this, TICK_RATE);
+					world.scheduleBlockUpdate(modX, modY, modZ, this, TICK_RATE_SPREAD);
 				}
 			}
 		}
+		world.scheduleBlockUpdate(x, y, z, this, TICK_RATE_STATIC);
 	}
 	
 }
