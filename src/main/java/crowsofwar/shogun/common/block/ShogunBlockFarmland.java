@@ -1,5 +1,7 @@
 package crowsofwar.shogun.common.block;
 
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -18,6 +20,7 @@ public class ShogunBlockFarmland extends Block {
 	private static final ForgeDirection[] ADJACENT_DIRECTIONS = new ForgeDirection[] {
 		ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST
 	};
+	private static final int TICK_RATE = 2;
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
@@ -83,6 +86,11 @@ public class ShogunBlockFarmland extends Block {
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
 		// BlockLiquid
+		updateTick(world, x, y, z, null);
+	}
+	
+	@Override
+	public void updateTick(World world, int x, int y, int z, Random randomizer) {
 		System.out.println("On neighbor block change");
 		int waterLevelThis = world.getBlockMetadata(x, y, z);
 		for (int i = 0; i < ADJACENT_DIRECTIONS.length; i++) {
@@ -98,8 +106,9 @@ public class ShogunBlockFarmland extends Block {
 				// Transfer some? IF this is <1 higher than that
 				if (waterLevelThis - 1 > waterLevelThat) {
 					System.out.println("Hahger, lawer dis and raise dat");
-					world.setBlockMetadataWithNotify(x, y, z, waterLevelThis - 1, 3);
-					world.setBlockMetadataWithNotify(modX, modY, modZ, waterLevelThat + 1, 3);
+					world.setBlockMetadataWithNotify(x, y, z, waterLevelThis - 1, 2);
+					world.setBlockMetadataWithNotify(modX, modY, modZ, waterLevelThat + 1, 2);
+					world.scheduleBlockUpdate(modX, modY, modZ, this, TICK_RATE);
 				}
 			}
 		}
