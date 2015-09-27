@@ -126,6 +126,12 @@ public class ShogunBlockFarmland extends Block {
 		}
 		if (player.getHeldItem() != null && player.getHeldItem().getItem() == Items.bucket) {
 			world.setBlockMetadataWithNotify(x, y, z, 0, 3);
+			for (int i = 0; i < ADJACENT_DIRECTIONS.length; i++) {
+				int modX = x + ADJACENT_DIRECTIONS[i].offsetX;
+				int modY = y + ADJACENT_DIRECTIONS[i].offsetY;
+				int modZ = z + ADJACENT_DIRECTIONS[i].offsetZ;
+				if (world.getBlock(modX, modY, modZ) == this) world.setBlockMetadataWithNotify(modX, modY, modZ, 0, 3);
+			}
 			return true;
 		}
 		
