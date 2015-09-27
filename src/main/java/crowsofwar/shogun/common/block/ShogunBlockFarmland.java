@@ -90,7 +90,6 @@ public class ShogunBlockFarmland extends Block {
 	
 	@Override
 	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
-		// BlockLiquid
 		updateTick(world, x, y, z, null);
 	}
 	
@@ -114,6 +113,13 @@ public class ShogunBlockFarmland extends Block {
 			}
 		}
 		world.scheduleBlockUpdate(x, y, z, this, TICK_RATE_STATIC);
+		
+		// Rain add/dry drain
+		if (GoreCoreMathHelper.randomInt(0, 100) == 1) { // don't use randomizer because onNeighborBlockChange uses randomizer as null
+			if (world.isRaining()) world.setBlockMetadataWithNotify(x, y, z, waterLevelThis + 1, 2);
+			if (waterLevelThis > 0 && !world.isRaining() && GoreCoreMathHelper.randomInt(0, 10) == 0)
+				world.setBlockMetadataWithNotify(x, y, z, waterLevelThis - 1, 2);
+		}
 	}
 	
 	@Override
