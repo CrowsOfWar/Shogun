@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,6 +14,10 @@ import crowsofwar.shogun.common.management.ShogunCreativeTabs;
 import crowsofwar.shogun.common.management.ShogunRenderIDs;
 
 public class ShogunBlockFarmland extends Block {
+	
+	private static final ForgeDirection[] ADJACENT_DIRECTIONS = new ForgeDirection[] {
+		ForgeDirection.SOUTH, ForgeDirection.WEST, ForgeDirection.NORTH, ForgeDirection.EAST
+	};
 	
 	@SideOnly(Side.CLIENT)
 	private IIcon iconTop;
@@ -73,6 +78,31 @@ public class ShogunBlockFarmland extends Block {
 	@Override
 	public int getRenderBlockPass() {
 		return 1;
+	}
+	
+	@Override
+	public void onNeighborBlockChange(World world, int x, int y, int z, Block block) {
+		// BlockLiquid
+		System.out.println("On neighbor block change");
+		int waterLevelThis = world.getBlockMetadata(x, y, z);
+		for (int i = 0; i < ADJACENT_DIRECTIONS.length; i++) {
+			ForgeDirection dir = ADJACENT_DIRECTIONS[i];
+			int modX = x + dir.offsetX;
+			int modY = y + dir.offsetY; // technically not necessary
+			int modZ = z + dir.offsetZ;
+			if (world.getBlock(modX, modY, modZ) == this) {
+				// Check water level
+				int waterLevelThat = world.getBlockMetadata(modX, modY, modZ);
+				System.out.println("Another thing to the " + dir);
+				System.out.println("THIS/THAT || " + waterLevelThis + "/" + waterLevelThat);
+				// Transfer some? IF this is <1 higher than that
+				if (waterLevelThis - 1 > waterLevelThat) {
+					System.out.println("Hahger, lawer dis and raise dat");
+					world.setBlockMetadataWithNotify(x, y, z, waterLevelThis - 1, 3);
+					world.setBlockMetadataWithNotify(modX, modY, modZ, waterLevelThat + 1, 3);
+				}
+			}
+		}
 	}
 	
 }
