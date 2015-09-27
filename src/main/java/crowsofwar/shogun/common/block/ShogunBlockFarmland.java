@@ -5,6 +5,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.util.IIcon;
@@ -13,6 +14,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import crowsofwar.gorecore.util.GoreCoreMathHelper;
 import crowsofwar.shogun.Shogun;
 import crowsofwar.shogun.common.management.ShogunCreativeTabs;
 import crowsofwar.shogun.common.management.ShogunRenderIDs;
@@ -128,6 +130,15 @@ public class ShogunBlockFarmland extends Block {
 		}
 		
 		return false;
+	}
+	
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+		if (entity.ticksExisted % 40 == 0) {
+			int metadata = world.getBlockMetadata(x, y, z);
+			world.playSoundAtEntity(entity, "random.splash", metadata / 60f + GoreCoreMathHelper.randomFloat(0, 0.25f),
+					GoreCoreMathHelper.randomFloat(0.5f, 0.65f));
+		}
 	}
 	
 }
