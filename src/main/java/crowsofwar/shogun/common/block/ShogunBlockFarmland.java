@@ -5,6 +5,8 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -110,6 +112,22 @@ public class ShogunBlockFarmland extends Block {
 			}
 		}
 		world.scheduleBlockUpdate(x, y, z, this, TICK_RATE_STATIC);
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player,
+			int something1, float something2, float something3, float something4) {
+		
+		if (player.getHeldItem() != null && player.getHeldItem().getItem() == Items.water_bucket) {
+			world.setBlockMetadataWithNotify(x, y, z, 15, 3);
+			return true;
+		}
+		if (player.getHeldItem() != null && player.getHeldItem().getItem() == Items.bucket) {
+			world.setBlockMetadataWithNotify(x, y, z, 0, 3);
+			return true;
+		}
+		
+		return false;
 	}
 	
 }
