@@ -1,9 +1,11 @@
 package crowsofwar.shogun.common.item;
 
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import cpw.mods.fml.common.registry.GameRegistry;
 import crowsofwar.gorecore.util.GoreCoreBodyCategory;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemArmor;
 
 /**
  * A class used to create, register, & hold on to the armor
@@ -42,7 +44,7 @@ public class ShogunArmorSet {
 	public ShogunArmorSet(ItemArmor.ArmorMaterial armorMaterial, CreativeTabs tab, String name, boolean register) {
 		armor = new ItemArmor[4];
 		for (int i = 0; i < armor.length; i++) {
-			ItemArmor item = new ItemArmor(armorMaterial, 2, i);
+			ItemArmor item = new ModelledArmor(armorMaterial, 2, i, name);
 			item.setCreativeTab(null);
 			item.setTextureName("shogun:" + name + "_" + PIECE_NAMES[i]);
 			item.setUnlocalizedName("shogun." + name + "_" + PIECE_NAMES[i]);
@@ -58,6 +60,22 @@ public class ShogunArmorSet {
 	
 	public ItemArmor getArmorPiece(GoreCoreBodyCategory armorPart) {
 		return getArmorPiece(armorPart.armorType());
+	}
+	
+	private class ModelledArmor extends ItemArmor {
+		
+		private final String texture;
+		
+		public ModelledArmor(ArmorMaterial armorMaterial, int renderType, int armorType, String texture) {
+			super(armorMaterial, renderType, armorType);
+			this.texture = texture;
+		}
+		
+		@Override
+		public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+			return slot == GoreCoreBodyCategory.LEGS.armorType() ? "shogun:" + type + "_legs" : "shogun:" + type;
+		}
+		
 	}
 	
 }
