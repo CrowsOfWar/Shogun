@@ -12,7 +12,7 @@ public class ShogunItems {
 	public static ShogunArmorSet armorSetOyori;
 	
 	public static void initAndRegister() {
-		armorSetOyori = new ShogunArmorSet(ArmorMaterial.IRON, ShogunCreativeTabs.tabCombat, "o-yori");
+		armorSetOyori = new ShogunArmorSet(ArmorMaterial.IRON, ShogunCreativeTabs.tabCombat, "o-yori", ShogunArmorType.OYORI);
 	}
 	
 }
