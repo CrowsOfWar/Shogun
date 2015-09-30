@@ -18,6 +18,11 @@ tile.roofing.name=Roofing
 tile.roofingStairs.name=Roofing
 tile.sfarmland.name=Farmland
 
+item.shogun.o-yori_helmet=O-yori Kabuto
+item.shogun.o-yori_chestplate=O-yori Do
+item.shogun.o-yori_leggings=O-yori Kusazuri
+item.shogun.o-yori_boots=O-yori Kegutsu
+
 itemGroup.shogunBuilding=Shogun: Building
 itemGroup.shogunCombat=Shogun: Combat
 itemGroup.shogunItems=Shogun: Items
