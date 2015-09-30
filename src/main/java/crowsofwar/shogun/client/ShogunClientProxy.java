@@ -1,12 +1,16 @@
 package crowsofwar.shogun.client;
 
 import static crowsofwar.shogun.common.management.ShogunGuiIDs.ID_CONVERSATION;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLLog;
 import crowsofwar.shogun.client.gui.ShogunGUIConversation;
+import crowsofwar.shogun.client.render.ShogunModelOyoriArmor;
 import crowsofwar.shogun.client.render.ShogunRenderFarmland;
 import crowsofwar.shogun.client.render.ShogunRenderNPC;
 import crowsofwar.shogun.common.ShogunCommonProxy;
@@ -16,6 +20,7 @@ import crowsofwar.shogun.common.data.ShogunPlayerDataFetcher;
 import crowsofwar.shogun.common.entity.ShogunNPCPeasant;
 import crowsofwar.shogun.common.entity.ShogunNPCTestBrain;
 import crowsofwar.shogun.common.gui.ShogunContainerConversation;
+import crowsofwar.shogun.common.management.ShogunArmorType;
 import crowsofwar.shogun.common.management.ShogunRenderIDs;
 
 public class ShogunClientProxy extends ShogunCommonProxy {
@@ -23,8 +28,12 @@ public class ShogunClientProxy extends ShogunCommonProxy {
 	private ShogunConversation currentConversation;
 	private int currentRenderPass;
 	
+	private ModelBiped modelOyoriArmor;
+	
 	public ShogunClientProxy() {
 		currentConversation = null;
+		
+		modelOyoriArmor = new ShogunModelOyoriArmor();
 	}
 	
 	@Override
@@ -71,6 +80,34 @@ public class ShogunClientProxy extends ShogunCommonProxy {
 	@Override
 	public void setCurrentRenderPass(int pass) {
 		this.currentRenderPass = pass;
+	}
+	
+	@Override
+	public ModelBiped getArmorModel(ShogunArmorType type, int armorSlot, EntityLivingBase entity) {
+		
+		ModelBiped model = null;
+		if (type == ShogunArmorType.OYORI) model = modelOyoriArmor;
+		
+		if (model != null) {
+			model.bipedHead.showModel = armorSlot == 0;
+			model.bipedHeadwear.showModel = armorSlot == 0;
+			model.bipedBody.showModel = armorSlot == 1 || armorSlot == 2;
+			model.bipedRightArm.showModel = armorSlot == 1;
+			model.bipedLeftArm.showModel = armorSlot == 1;
+			model.bipedRightLeg.showModel = armorSlot == 2
+					|| armorSlot == 3;
+			model.bipedLeftLeg.showModel = armorSlot == 2
+					|| armorSlot == 3;
+			model.isSneak = entity.isSneaking();
+			model.isRiding = entity.isRiding();
+			model.isChild = entity.isChild();
+			model.heldItemRight = entity.getEquipmentInSlot(0) != null ? 1 : 0;
+			if (entity instanceof EntityPlayer) model.aimedBow = ((EntityPlayer) entity).getItemInUseDuration() > 2;
+			
+			return model;
+		}
+		
+		return null;
 	}
 	
 }
