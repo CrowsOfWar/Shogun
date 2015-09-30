@@ -21,6 +21,7 @@ public class ShogunModelOyoriArmor extends ModelBiped {
     public ModelRenderer Top;
 
     public ShogunModelOyoriArmor() {
+    	super(0, 0, 64, 64);
         this.RightHeadThingy = new ModelRenderer(this, 0, 32);
         this.RightHeadThingy.mirror = true;
         this.RightHeadThingy.setRotationPoint(-5.0F, -8.0F, -3.5F);

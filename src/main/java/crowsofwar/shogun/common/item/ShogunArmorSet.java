@@ -84,7 +84,7 @@ public class ShogunArmorSet {
 		
 		@Override
 		public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-			return slot == GoreCoreBodyCategory.LEGS.armorType() ? "shogun:" + texture + "_legs" : "shogun:" + texture;
+			return "shogun:textures/armor/" + texture + ".png";
 		}
 		
 		@Override
